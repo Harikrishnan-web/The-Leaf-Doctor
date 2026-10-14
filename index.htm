@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#123d2d">
+  <title>The Leaf Doctor — farms, seen alive</title>
+  <style>
+    :root{--forest:#123d2d;--forest2:#1d5b40;--leaf:#4e9d63;--mint:#dff1df;--pale:#f4f8f1;--ink:#18372b;--muted:#708276;--line:#e4ece3;--gold:#e5b960;--white:#fff;--shadow:0 18px 55px rgba(21,67,46,.10);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f7faf5;color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}.shell{max-width:1220px;margin:auto;padding:0 28px}.topbar{height:80px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.04em;font-size:20px}.brand-mark{width:40px;height:40px;border-radius:14px;background:var(--forest);display:grid;place-items:center;color:white;box-shadow:0 8px 20px #123d2d30}.brand-mark svg{width:23px}.nav{display:flex;align-items:center;gap:28px;color:#52695b;font-size:14px;font-weight:600}.nav a:hover{color:var(--forest)}.top-actions{display:flex;align-items:center;gap:10px}.pill-status{display:flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid #dce8dc;border-radius:999px;background:#fff;font-size:11px;font-weight:750;color:#617565}.pulse-dot{width:7px;height:7px;border-radius:50%;background:#54b878;box-shadow:0 0 0 4px #54b87820;animation:pulse 2s infinite}@keyframes pulse{50%{box-shadow:0 0 0 8px #54b87800}}.btn{border:0;border-radius:13px;padding:12px 17px;font-weight:750;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn:hover{transform:translateY(-2px);filter:brightness(1.03)}.btn-primary{background:var(--forest);color:#fff;box-shadow:0 8px 20px #123d2d20}.btn-soft{background:#e6f2e5;color:var(--forest)}.btn-outline{background:white;color:var(--forest);border:1px solid #dbe7dc}.btn-small{padding:9px 12px;font-size:13px;border-radius:11px}.btn-quiet{background:transparent;color:#64756a;padding:8px 10px}.hero{display:grid;grid-template-columns:1.03fr .97fr;gap:50px;align-items:center;padding:55px 0 74px}.eyebrow{text-transform:uppercase;letter-spacing:.14em;color:#4d8c5b;font-size:11px;font-weight:850;display:flex;align-items:center;gap:9px}.eyebrow:before{content:"";width:25px;height:1px;background:#69aa74}.hero h1{font-size:clamp(44px,6vw,72px);line-height:.99;letter-spacing:-.065em;margin:19px 0 20px;max-width:650px}.hero h1 span{color:#4e9360}.hero-copy{color:#697a6f;font-size:17px;line-height:1.7;max-width:510px}.hero-actions{display:flex;gap:12px;margin:26px 0 31px;flex-wrap:wrap}.tiny-proof{display:flex;align-items:center;gap:11px;color:#738277;font-size:12px}.avatars{display:flex}.avatars i{font-style:normal;width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:#d6ead4;border:2px solid white;margin-left:-6px;font-size:11px}.avatars i:first-child{margin-left:0;background:#f4ddc4}.avatars i:nth-child(2){background:#d9e6bf}.avatars i:nth-child(3){background:#d7e6ec}.hero-visual{min-height:440px;position:relative;border-radius:32px;background:linear-gradient(150deg,#dcefd8,#edf6e9 57%,#d8ead6);overflow:hidden;box-shadow:var(--shadow)}.visual-sun{position:absolute;right:15%;top:11%;width:76px;height:76px;border-radius:50%;background:#f6d987;filter:blur(.2px);box-shadow:0 0 52px #f3d57688}.visual-hill{position:absolute;bottom:-70px;border-radius:50% 50% 0 0;width:125%;height:245px;left:-12%;background:#8cbd7c;transform:rotate(-7deg)}.visual-hill.back{bottom:-92px;left:38%;background:#69a970;transform:rotate(8deg);height:220px}.plot-lines{position:absolute;left:-9%;bottom:-4%;width:125%;height:155px;opacity:.56;transform:rotate(-9deg);background:repeating-linear-gradient(0deg,transparent 0 17px,#d2e8c9 18px 22px)}.visual-leaf{position:absolute;bottom:25px;left:24%;width:170px;height:245px;animation:sway 5s ease-in-out infinite}.visual-leaf.second{left:auto;right:13%;bottom:3px;transform:scale(.78);animation-delay:-2s}.visual-leaf svg{width:100%;height:100%;overflow:visible}.leaf-stem{stroke:#286644;stroke-width:5;fill:none;stroke-linecap:round}.leaf-blade{fill:#428c54;stroke:#347d47;stroke-width:2;transform-origin:bottom center;animation:grow .9s both}.leaf-blade:nth-of-type(2){animation-delay:.18s}.leaf-blade:nth-of-type(3){animation-delay:.32s}.fruit{fill:#d64f44;stroke:#a93c32;stroke-width:2;animation:bob 4s ease-in-out infinite}.float-card{position:absolute;background:#ffffffed;border:1px solid #ffffff;border-radius:18px;padding:15px 17px;box-shadow:0 14px 36px #18452c1a;backdrop-filter:blur(10px)}.float-score{left:24px;top:27px;width:178px}.float-score small,.float-weather small{display:block;color:#839287;font-size:10px;font-weight:750;letter-spacing:.08em;text-transform:uppercase}.score-line{display:flex;align-items:baseline;gap:6px;margin:8px 0}.score-line strong{font-size:34px;letter-spacing:-.06em;color:var(--forest)}.score-line span{font-size:12px;color:#7f8d82}.score-up{font-size:11px;color:#46945a;font-weight:800}.float-weather{right:20px;top:30px;padding:12px 15px}.float-weather strong{display:block;font-size:17px;margin-top:5px}.weather-icon{color:#c68e2f;margin-right:5px}.float-insight{right:22px;bottom:34px;max-width:210px;font-size:12px;line-height:1.45}.insight-icon{width:25px;height:25px;background:#e2f2e2;color:#33844e;border-radius:8px;display:grid;place-items:center;margin-bottom:8px}.section{padding:40px 0 75px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}.section-head h2{font-size:30px;letter-spacing:-.045em;margin:7px 0 0}.section-head p{margin:0;color:#7b897e;font-size:13px}.farm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.farm-card{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 7px 25px #254f3610;transition:.2s;cursor:pointer}.farm-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}.farm-cover{height:145px;position:relative;overflow:hidden;background:linear-gradient(150deg,#e3f3dc,#bedfba)}.farm-cover:before,.farm-cover:after{content:"";position:absolute;border-radius:50% 50% 0 0;bottom:-55px;width:120%;height:130px;background:#82b979;left:-12%;transform:rotate(-7deg)}.farm-cover:after{left:32%;bottom:-66px;background:#65a66e;transform:rotate(7deg)}.farm-cover .plant-art{position:absolute;z-index:2;width:115px;height:138px;bottom:-7px;left:calc(50% - 57px);filter:drop-shadow(0 9px 8px #274d3220)}.farm-cover .tag{position:absolute;z-index:3;left:14px;top:13px;padding:7px 10px;background:#ffffffdb;border-radius:999px;color:#356746;font-size:10px;font-weight:800}.farm-body{padding:16px 18px 18px}.farm-title-row{display:flex;align-items:start;justify-content:space-between;gap:10px}.farm-title-row h3{font-size:17px;letter-spacing:-.03em;margin:0}.location{color:#869389;font-size:11px;margin-top:5px}.mini-score{font-size:14px;color:#3b8751;font-weight:850;white-space:nowrap}.mini-score small{font-size:9px;color:#9aa69b;font-weight:700}.farm-meta{display:flex;gap:16px;margin-top:14px;padding-top:12px;border-top:1px solid #edf1ec;color:#768479;font-size:11px}.farm-meta b{color:#425d4a}.metric-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:25px 0 0}.metric-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px 19px;display:flex;align-items:center;gap:13px}.metric-icon{width:39px;height:39px;border-radius:13px;background:#e7f3e5;display:grid;place-items:center;color:#387b4b;font-size:17px}.metric-card small{display:block;color:#829084;font-size:10px;font-weight:700}.metric-card strong{display:block;margin-top:3px;font-size:17px;letter-spacing:-.03em}.dashboard{background:#eef5eb;border-top:1px solid #e5eee3;border-bottom:1px solid #e5eee3;padding:62px 0 75px}.dashboard-intro{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:23px}.dashboard-intro h2{margin:8px 0 0;font-size:33px;letter-spacing:-.05em}.dashboard-intro p{margin:8px 0 0;color:#718075;font-size:13px}.farm-workspace{background:#fff;border:1px solid #e0eade;border-radius:23px;padding:20px}.workspace-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px}.workspace-head h3{margin:0;font-size:16px}.farm-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.farm-list-item{border:1px solid #e8eee6;border-radius:16px;padding:14px;display:flex;align-items:center;gap:13px;cursor:pointer;transition:.18s}.farm-list-item:hover,.farm-list-item.active{border-color:#8fb99a;background:#fbfef9}.farm-thumb{width:53px;height:53px;flex:none;border-radius:13px;background:linear-gradient(145deg,#e4f1df,#b4d7ae);display:grid;place-items:center;overflow:hidden}.farm-thumb .plant-art{width:51px;height:51px}.farm-list-item h4{font-size:13px;margin:0}.farm-list-item p{margin:4px 0 0;font-size:10px;color:#849187}.farm-list-item .mini-score{margin-left:auto;font-size:12px}.empty-state{text-align:center;padding:34px 12px;border:1px dashed #d8e4d7;border-radius:17px;color:#829084}.empty-state strong{display:block;margin:8px 0;color:#3b5844}.detail-wrap{margin-top:18px;border:1px solid #e4ece2;border-radius:20px;overflow:hidden}.detail-top{padding:20px 22px;background:linear-gradient(100deg,#f9fcf7,#f1f8ee);display:flex;align-items:center;justify-content:space-between;gap:16px}.detail-top h3{font-size:22px;letter-spacing:-.04em;margin:0}.detail-top p{margin:5px 0 0;color:#7a897e;font-size:12px}.score-pill{background:#fff;border:1px solid #e1ece0;padding:10px 13px;border-radius:13px;text-align:right}.score-pill strong{font-size:20px;color:#35804b}.score-pill small{display:block;color:#849186;font-size:9px}.detail-metrics{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid #e8eee6}.detail-metric{padding:15px 20px;border-right:1px solid #e8eee6}.detail-metric:last-child{border:0}.detail-metric small{color:#859187;font-size:10px}.detail-metric strong{display:block;margin-top:4px;font-size:16px}.inventory{padding:19px 20px 22px}.inventory-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:13px}.inventory-head h4{margin:0;font-size:15px}.inventory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.crop-card{border:1px solid #e5ece3;border-radius:16px;padding:14px;display:grid;grid-template-columns:66px 1fr;gap:12px;align-items:center;cursor:pointer;transition:.18s}.crop-card:hover{background:#fbfef9;border-color:#afd0b3}.crop-art{width:66px;height:70px;border-radius:13px;background:#f0f7ed;display:grid;place-items:center;overflow:hidden}.crop-art .plant-art{width:64px;height:68px}.crop-card h5{font-size:13px;margin:0}.crop-count{font-size:10px;color:#819084;margin-top:3px}.crop-stats{display:flex;gap:11px;margin-top:9px;font-size:9px;color:#79877c}.crop-stats b{color:#4d7255}.crop-bottom{grid-column:1/-1;border-top:1px solid #edf1ec;padding-top:9px;display:flex;justify-content:space-between;font-size:10px;color:#7c8b7f}.crop-bottom strong{color:#4f7958}.share-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:#768479;font-size:11px;padding:14px 20px;border-top:1px solid #e7eee5}.share-chip{padding:6px 9px;background:#eef5eb;border-radius:999px;color:#47724f;font-size:10px}.share-chip button{border:0;background:none;color:#829184;font-weight:800;padding:0 0 0 5px}.overlay{position:fixed;inset:0;background:#12271f83;z-index:20;display:grid;place-items:center;padding:20px;backdrop-filter:blur(5px)}.modal{width:min(520px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:24px;padding:25px;box-shadow:0 35px 100px #091c1250;animation:modalIn .22s ease-out}@keyframes modalIn{from{transform:translateY(12px) scale(.98);opacity:0}to{transform:none;opacity:1}}.modal-head{display:flex;justify-content:space-between;align-items:start;gap:14px;margin-bottom:17px}.modal-head h3{margin:0;font-size:23px;letter-spacing:-.04em}.modal-head p{color:#7b897e;font-size:12px;margin:6px 0 0}.close{border:0;background:#f1f5ef;color:#5a6f60;border-radius:10px;width:34px;height:34px;font-size:20px}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:11px;font-weight:750;color:#607164}.field input,.field select,.field textarea{width:100%;border:1px solid #dfe8dd;border-radius:11px;padding:12px 13px;color:#254431;background:white;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:#79ae80;box-shadow:0 0 0 3px #79ae801f}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.form-note{font-size:11px;line-height:1.55;color:#7b897e;background:#f3f8f1;padding:11px 12px;border-radius:11px;margin:13px 0}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:17px}.message{color:#a7483d;font-size:12px;min-height:17px;margin:8px 0}.unit-list{display:grid;gap:9px}.unit-row{display:grid;grid-template-columns:50px 1fr auto;gap:11px;align-items:center;padding:10px;border:1px solid #e8eee6;border-radius:13px}.unit-row .plant-art{width:48px;height:52px}.unit-row strong{display:block;font-size:12px}.unit-row small{color:#78867b;font-size:10px}.unit-values{display:flex;gap:9px;font-size:10px;color:#718074}.footer{padding:30px 0 45px;color:#819084;font-size:11px;display:flex;justify-content:space-between;gap:20px}.footer strong{color:#46644d}.preview-banner{display:none;background:#fff4df;color:#745920;border-bottom:1px solid #f0dfb8;padding:10px;text-align:center;font-size:11px;font-weight:700}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(100px);background:#153e2d;color:#fff;padding:13px 18px;border-radius:13px;box-shadow:var(--shadow);font-size:13px;z-index:30;transition:.25s}.toast.show{transform:translateX(-50%) translateY(0)}.hidden{display:none!important}.plant-art{overflow:visible}.plant-art .plant-shape{transform-box:fill-box;transform-origin:center bottom;transform:scale(var(--stage-scale,1));animation:stage-in .7s cubic-bezier(.12,.8,.2,1) both}.plant-art.stage-seedling .fruit-red,.plant-art.stage-growing .fruit-red,.plant-art.stage-leafing .fruit-red,.plant-art.stage-flowering .fruit-red{display:none}.plant-art .leaf{fill:#4c9859;stroke:#347b46;stroke-width:1.2;transform-origin:center bottom;animation:grow .8s cubic-bezier(.1,.8,.2,1) both}.plant-art .leaf:nth-child(2){animation-delay:.12s}.plant-art .leaf:nth-child(3){animation-delay:.24s}.plant-art .stem{fill:none;stroke:#357947;stroke-width:3;stroke-linecap:round}.plant-art .fruit-red{fill:#dc5546;stroke:#a83f36;stroke-width:1.3;animation:bob 4s ease-in-out infinite}.plant-art .fruit-yellow{fill:#f4d05f;stroke:#c99e37;stroke-width:1.2}.plant-art .trunk{fill:#8c6040}.plant-art .canopy{fill:#4a9559;stroke:#347a48;stroke-width:1.4}.plant-art .soil{fill:#9d7752}.plant-art.sick{filter:saturate(.6)}.plant-art.sick .leaf,.plant-art.sick .canopy{fill:#a5a05b}@keyframes stage-in{from{transform:scale(.24);opacity:.35}to{transform:scale(var(--stage-scale,1));opacity:1}}@keyframes grow{from{transform:scale(.65);opacity:.3}to{transform:scale(1);opacity:1}}@keyframes sway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.how-card{background:#fff;border:1px solid var(--line);padding:20px;border-radius:19px}.how-card .num{font-size:11px;color:#65a171;font-weight:850;letter-spacing:.1em}.how-card h3{font-size:15px;margin:11px 0 7px}.how-card p{font-size:12px;line-height:1.55;color:#77867a;margin:0}
+    @media(max-width:900px){.hero{gap:25px}.farm-grid,.inventory-grid,.farm-list{grid-template-columns:repeat(2,1fr)}.nav{gap:15px}.hero-visual{min-height:390px}}@media(max-width:680px){.shell{padding:0 17px}.topbar{height:68px}.nav,.pill-status{display:none}.brand{font-size:18px}.brand-mark{width:36px;height:36px}.top-actions .btn{padding:10px 12px;font-size:12px}.hero{grid-template-columns:1fr;padding:38px 0 50px}.hero h1{font-size:51px}.hero-copy{font-size:15px}.hero-visual{min-height:340px}.visual-leaf{left:20%;transform:scale(.8);transform-origin:bottom center}.visual-leaf.second{right:5%}.float-score{left:13px;top:15px;transform:scale(.88);transform-origin:top left}.float-weather{right:12px;top:15px;transform:scale(.9);transform-origin:top right}.section{padding:35px 0 50px}.section-head,.dashboard-intro{align-items:start;flex-direction:column}.farm-grid,.farm-list,.inventory-grid,.metric-strip,.how-grid{grid-template-columns:1fr}.metric-strip{gap:8px}.dashboard{padding:44px 0 55px}.farm-workspace{padding:13px}.detail-metrics{grid-template-columns:repeat(2,1fr)}.detail-metric:nth-child(2){border-right:0}.detail-metric:nth-child(-n+2){border-bottom:1px solid #e8eee6}.detail-top{align-items:start;padding:16px}.inventory{padding:16px 13px}.inventory-head{align-items:start;flex-direction:column}.crop-card{grid-template-columns:58px 1fr}.crop-art{width:58px}.share-row{padding:13px}.footer{flex-direction:column}.field-grid{grid-template-columns:1fr}.modal{padding:20px}.score-pill{padding:8px 10px}.score-pill strong{font-size:17px}}
+  </style>
+</head>
+<body>
+  <div class="preview-banner" id="previewBanner">Local preview — example farms and changes stay in this browser until Firebase is configured.</div>
+  <header class="shell topbar">
+    <a class="brand" href="#"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19.8 3.8C10 4 5.2 7.3 5.2 13.2c0 3.2 2.2 5.1 5.1 5.1 6.1 0 9-6.5 9.5-14.5Z" fill="#7BC77D"/><path d="M3.8 20.1c2.8-6 6.2-9.5 12-12.3" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg></span>The Leaf Doctor</a>
+    <nav class="nav"><a href="#farms">Explore farms</a><a href="#my-farms">My farms</a><a href="#how">How it works</a><a href="./backend.htm">Admin</a></nav>
+    <div class="top-actions"><span class="pill-status"><i class="pulse-dot"></i><span id="liveLabel">LIVE FARM VIEW</span></span><button class="btn btn-outline btn-small" data-action="auth" id="authButton">Sign in</button></div>
+  </header>
+  <main>
+    <section class="shell hero">
+      <div>
+        <div class="eyebrow">A living view of every field</div>
+        <h1>Healthy farms,<br><span>seen alive.</span></h1>
+        <p class="hero-copy">Turn plant readings into a living farm you can understand at a glance. Watch crops grow, spot stress early, and follow health from one plant to the whole farm.</p>
+        <div class="hero-actions"><button class="btn btn-primary" data-action="demo">Explore the live demo <span aria-hidden="true">↗</span></button><a class="btn btn-soft" href="#farms">See community farms <span aria-hidden="true">↓</span></a></div>
+        <div class="tiny-proof"><div class="avatars"><i>🌱</i><i>🍅</i><i>🌾</i></div><span>Plant by plant. Farm by farm. Updated as readings arrive.</span></div>
+      </div>
+      <div class="hero-visual" aria-label="Animated tomato plant and farm health preview">
+        <div class="visual-sun"></div><div class="visual-hill back"></div><div class="visual-hill"></div><div class="plot-lines"></div>
+        <div class="float-card float-score"><small>Farm vitality</small><div class="score-line"><strong>91</strong><span>/100</span></div><div class="score-up">↗ 4 points this week</div></div>
+        <div class="float-card float-weather"><small><span class="weather-icon">☀</span>Growing conditions</small><strong>Just right</strong></div>
+        <div class="visual-leaf"><svg viewBox="0 0 150 220" aria-hidden="true"><path class="leaf-stem" d="M75 220C74 165 72 103 80 33"/><path class="leaf-blade" d="M76 133C30 127 22 97 28 82c24-4 47 10 48 51Z"/><path class="leaf-blade" d="M77 105c43-2 55-29 50-46-24-5-48 10-50 46Z"/><path class="leaf-blade" d="M77 75C43 68 38 45 44 31c18-1 35 10 33 44Z"/><circle class="fruit" cx="55" cy="162" r="17"/><circle class="fruit" cx="99" cy="151" r="15"/><path d="m55 143 3-6 4 6M99 137l3-6 4 6" fill="#43804a"/></svg></div>
+        <div class="visual-leaf second"><svg viewBox="0 0 150 220" aria-hidden="true"><path class="leaf-stem" d="M75 220C74 165 72 103 80 33"/><path class="leaf-blade" d="M76 133C30 127 22 97 28 82c24-4 47 10 48 51Z"/><path class="leaf-blade" d="M77 105c43-2 55-29 50-46-24-5-48 10-50 46Z"/><path class="leaf-blade" d="M77 75C43 68 38 45 44 31c18-1 35 10 33 44Z"/></svg></div>
+        <div class="float-card float-insight"><div class="insight-icon">✦</div><strong>Good morning, tomatoes</strong><br>Soil moisture is steady. New growth looks strong.</div>
+      </div>
+    </section>
+    <section class="shell section" id="farms">
+      <div class="section-head"><div><div class="eyebrow">Growing together</div><h2>Farms worth a closer look</h2></div><p>Every farm tells a living story.</p></div>
+      <div class="farm-grid" id="publicFarmGrid"></div>
+      <div class="metric-strip">
+        <div class="metric-card"><div class="metric-icon">⌁</div><div><small>Plant-by-plant insight</small><strong>See every crop</strong></div></div>
+        <div class="metric-card"><div class="metric-icon">◉</div><div><small>Living farm score</small><strong>Health over time</strong></div></div>
+        <div class="metric-card"><div class="metric-icon">↗</div><div><small>One shared view</small><strong>Built for growers</strong></div></div>
+      </div>
+    </section>
+    <section class="dashboard" id="my-farms">
+      <div class="shell">
+        <div class="dashboard-intro"><div><div class="eyebrow">Your growing space</div><h2>Every farm, in one place.</h2><p>Sign in to manage farms you own or have been invited to edit.</p></div><div><button class="btn btn-primary" data-action="new-farm" id="newFarmButton">＋ Add a farm</button></div></div>
+        <div class="farm-workspace">
+          <div class="workspace-head"><h3 id="farmListTitle">Explore the public farms</h3><button class="btn btn-outline btn-small" data-action="workspace-auth" id="workspaceAuth">Sign in to manage</button></div>
+          <div class="farm-list" id="farmList"></div>
+          <div id="farmDetail"></div>
+        </div>
+      </div>
+    </section>
+    <section class="shell section" id="how">
+      <div class="section-head"><div><div class="eyebrow">From readings to a living farm</div><h2>Simple to grow with.</h2></div><p>Visuals respond to crop type and growth stage.</p></div>
+      <div class="how-grid">
+        <article class="how-card"><span class="num">01 / CONNECT</span><h3>Bring your farms together</h3><p>Create a farm, add crops in seconds, and invite trusted people by email. Public farm pages are viewable by everyone.</p></article>
+        <article class="how-card"><span class="num">02 / UNDERSTAND</span><h3>See what each plant needs</h3><p>Health, moisture, growth stage and yield outlook are shown for each plant and summarized by crop.</p></article>
+        <article class="how-card"><span class="num">03 / KEEP GROWING</span><h3>Follow the farm's pulse</h3><p>Each saved reading adds a daily snapshot. Vitality blends plant health (70%) with crop moisture fit (30%); the target values are starting estimates to calibrate for your crops and climate.</p></article>
+      </div>
+    </section>
+  </main>
+  <footer class="shell footer"><span><strong>The Leaf Doctor</strong> · A living view of your farm.</span><span>Health scores are illustrative and are not a yield guarantee or investment recommendation.</span></footer>
+  <div id="modalRoot"></div><div class="toast" id="toast"></div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+    import { getFirestore, collection, doc, addDoc, setDoc, updateDoc, query, where, onSnapshot, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC8mB015N_UGUBiVokx8K3KNvHMr5ADW4o",
+      authDomain: "the-sustainable-you.firebaseapp.com",
+      projectId: "the-sustainable-you",
+      storageBucket: "the-sustainable-you.firebasestorage.app",
+      messagingSenderId: "243575624436",
+      appId: "1:243575624436:web:3f1b17a0d31b3aeb2184a1",
+      measurementId: "G-CMN9Y3Y99R"
+    };
+    const READY = firebaseConfig.apiKey && firebaseConfig.apiKey !== "PASTE_YOUR_FIREBASE_WEB_API_KEY";
+    let app=null, auth=null, db=null, currentUser=null, demoSession=false, allFarms=[], selectedFarmId=null, selectedGroup=null, farmListeners=new Map(), publicFarmsUnsub=null;
+    const seedFarms=[
+      {id:"demo-meadow",name:"Morning Meadow Farm",location:"Nashik, Maharashtra",area:12.4,score:91,ownerUid:"demo-owner",editorEmails:[],isPublic:true,updatedAt:"Live demo",dailyScores:[84,86,85,89,87,90,91],plants:[
+        {id:"t1",species:"tomato",label:"Tomato",health:94,moisture:58,yieldKg:4.8,growthStage:"Fruiting",soilPh:6.4,tempC:24,notes:"Flowering steadily"},
+        {id:"t2",species:"tomato",label:"Tomato",health:88,moisture:52,yieldKg:4.3,growthStage:"Fruiting",soilPh:6.5,tempC:25,notes:"Healthy new leaves"},
+        {id:"t3",species:"tomato",label:"Tomato",health:91,moisture:56,yieldKg:4.5,growthStage:"Flowering",soilPh:6.3,tempC:24,notes:""},
+        {id:"l1",species:"lettuce",label:"Lettuce",health:90,moisture:64,yieldKg:0.7,growthStage:"Leafing",soilPh:6.6,tempC:21,notes:""},
+        {id:"l2",species:"lettuce",label:"Lettuce",health:86,moisture:62,yieldKg:0.6,growthStage:"Leafing",soilPh:6.6,tempC:21,notes:""},
+        {id:"b1",species:"banana",label:"Banana",health:88,moisture:68,yieldKg:13,growthStage:"Growing",soilPh:6.2,tempC:27,notes:""}
+      ]},
+      {id:"demo-river",name:"Riverbend Orchard",location:"Coorg, Karnataka",area:8.2,score:89,ownerUid:"grower-2",editorEmails:["demo@leafdoctor.local"],isPublic:true,updatedAt:"Today",dailyScores:[82,83,84,85,86,87,89],plants:[
+        {id:"a1",species:"apple",label:"Apple tree",health:89,moisture:57,yieldKg:18,growthStage:"Fruiting",soilPh:6.2,tempC:22,notes:""},
+        {id:"a2",species:"apple",label:"Apple tree",health:84,moisture:55,yieldKg:16,growthStage:"Fruiting",soilPh:6.3,tempC:22,notes:""},
+        {id:"c1",species:"corn",label:"Sweet corn",health:83,moisture:60,yieldKg:1.4,growthStage:"Tasseling",soilPh:6.1,tempC:26,notes:""}
+      ]},
+      {id:"demo-hill",name:"Hilltop Greens",location:"Ooty, Tamil Nadu",area:5.7,score:81,ownerUid:"grower-3",editorEmails:[],isPublic:true,updatedAt:"Today",dailyScores:[74,75,77,78,79,80,81],plants:[
+        {id:"r1",species:"rice",label:"Rice",health:80,moisture:79,yieldKg:0.6,growthStage:"Tillering",soilPh:6.0,tempC:23,notes:""},
+        {id:"r2",species:"rice",label:"Rice",health:75,moisture:72,yieldKg:0.5,growthStage:"Tillering",soilPh:6.0,tempC:23,notes:""}
+      ]}
+    ];
+    function clone(x){return JSON.parse(JSON.stringify(x))}
+    function readDemo(){try{return JSON.parse(localStorage.getItem("leafDoctorDemoFarms"))||clone(seedFarms)}catch{return clone(seedFarms)}}
+    function persistDemo(){localStorage.setItem("leafDoctorDemoFarms",JSON.stringify(allFarms))}
+    function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+    function num(v,d=0){const n=Number(v);return Number.isFinite(n)?n:d}
+    function cropName(species){return ({tomato:"Tomato",apple:"Apple tree",banana:"Banana",corn:"Sweet corn",rice:"Rice",lettuce:"Lettuce",wheat:"Wheat",potato:"Potato",pepper:"Bell pepper",grape:"Grape vine",mango:"Mango tree",cucumber:"Cucumber"})[String(species||"").toLowerCase()]||String(species||"Plant").replace(/[-_]+/g," ").replace(/\b\w/g,c=>c.toUpperCase())}
+    function art(species,health=90,stage="Growing",designType="plant"){
+      const s=String(species||"").toLowerCase();const stageKey=String(stage||"Growing").toLowerCase().replace(/[^a-z0-9]+/g,"-");const stageScale=({seedling:.43,growing:.63,leafing:.73,flowering:.87,fruiting:1,"harvest-ready":1.04,dormant:.7})[stageKey]||.76;let inner='';
+      if(s==="tomato"||s==="pepper"){
+        inner='<path class="stem" d="M48 94C49 69 47 43 52 19"/><path class="leaf" d="M49 62C24 62 17 47 19 38c15-3 29 5 30 24Z"/><path class="leaf" d="M51 48c23-1 31-15 28-25-14-3-27 5-28 25Z"/><path class="leaf" d="M51 31C35 27 33 15 37 9c11 0 17 8 14 22Z"/><circle class="fruit-red" cx="38" cy="78" r="10"/><circle class="fruit-red" cx="63" cy="74" r="9"/><path d="m38 68 3-4 3 4m19-3 3-4 3 4" fill="#45804a"/>';
+      }else if(s==="apple"||s==="mango"){
+        inner='<path class="trunk" d="M45 94 49 46h9l7 48Z"/><circle class="canopy" cx="37" cy="42" r="19"/><circle class="canopy" cx="57" cy="35" r="23"/><circle class="canopy" cx="72" cy="49" r="17"/><circle class="fruit-red" cx="44" cy="43" r="4"/><circle class="fruit-red" cx="63" cy="30" r="4"/><circle class="fruit-red" cx="71" cy="51" r="4"/>';
+      }else if(s==="corn"){
+        inner='<path class="stem" d="M52 97 51 18"/><path class="leaf" d="M51 75C24 69 17 59 15 51c20-3 31 8 36 24Z"/><path class="leaf" d="M51 61c27-4 36-14 39-23-20-3-33 8-39 23Z"/><path class="leaf" d="M51 45C32 38 29 27 31 20c16 1 22 12 20 25Z"/><path d="M54 66c16-1 19 14 15 27H51c-3-12-1-23 3-27Z" fill="#e8c44e" stroke="#bb9936"/><path d="M53 67c-5-7-9-8-12-7m27 5c5-6 8-7 10-7" stroke="#4b8b50" stroke-width="2" fill="none"/>';
+      }else if(s==="rice"||s==="wheat"){
+        inner='<path class="stem" d="M50 96C48 62 47 34 50 15M51 75 30 48M51 68l24-29M50 56 35 30M49 44l17-22"/><path class="leaf" d="M50 70C29 74 20 66 17 59c14-6 26 0 33 11Z"/><path class="leaf" d="M51 58c21 1 29-8 31-16-14-4-25 3-31 16Z"/><g fill="#d9b750"><ellipse cx="48" cy="17" rx="2" ry="4"/><ellipse cx="55" cy="20" rx="2" ry="4"/><ellipse cx="44" cy="24" rx="2" ry="4"/><ellipse cx="54" cy="29" rx="2" ry="4"/></g>';
+      }else if(s==="lettuce"||s==="potato"){
+        inner='<path class="leaf" d="M51 86C14 85 17 61 25 51c8 1 14 5 19 12-10-22 4-38 12-42 9 8 12 19 7 34 9-19 24-17 29-12 1 17-10 27-26 32 13-5 26 2 26 10-8 14-22 16-41 9Z"/><path d="M50 87 50 44m0 31L30 57m20 21 25-22" stroke="#43864e" stroke-width="2" fill="none"/>';
+      }else if(s==="banana"){
+        inner='<path class="stem" d="M50 96 51 16"/><path class="leaf" d="M51 35C27 29 19 19 17 11c19-4 32 7 34 24Z"/><path class="leaf" d="M51 41c18-23 32-25 41-21-4 17-19 25-41 21Z"/><path class="leaf" d="M50 50C27 45 15 50 10 58c14 12 28 8 40-8Z"/><path d="M53 57c15 2 18 13 13 23-4 7-10 7-13 0-4-8-2-18 0-23Z" fill="#e7cb4c" stroke="#b49b32"/>';
+      }else if(designType==="tree"){
+        inner='<path class="trunk" d="M43 95 46 53h9l5 42Z"/><circle class="canopy" cx="38" cy="46" r="18"/><circle class="canopy" cx="56" cy="34" r="22"/><circle class="canopy" cx="72" cy="48" r="16"/>';
+      }else if(designType==="weed"){
+        inner='<path class="stem" d="M50 92 51 69M50 89 29 73M51 87 73 67M50 85 40 57M52 83 63 54"/><path class="leaf" d="M51 71C32 77 23 70 20 64c13-8 25-3 31 7Z"/><path class="leaf" d="M52 73c18-10 29-5 34 1-9 12-22 11-34-1Z"/><path class="leaf" d="M49 64C35 57 34 47 39 42c10 4 14 12 10 22Z"/><path class="leaf" d="M55 64c6-16 16-19 23-15-1 12-9 18-23 15Z"/>';
+      }else{
+        inner='<path class="stem" d="M50 95 50 31"/><path class="leaf" d="M50 77C25 76 20 63 22 54c14-2 25 6 28 23Z"/><path class="leaf" d="M51 61c21-1 27-13 25-22-13-2-24 7-25 22Z"/><path class="leaf" d="M50 44C35 40 33 29 37 23c10 1 16 8 13 21Z"/><circle cx="51" cy="18" r="9" fill="#76af63"/>';
+      }
+      if(stageKey==="flowering")inner+='<g fill="#fff8dc" stroke="#d6bd62" stroke-width="1"><circle cx="30" cy="43" r="3"/><circle cx="66" cy="27" r="3"/><circle cx="48" cy="18" r="3"/><circle cx="30" cy="43" r="1.2" fill="#e6bd42"/><circle cx="66" cy="27" r="1.2" fill="#e6bd42"/><circle cx="48" cy="18" r="1.2" fill="#e6bd42"/></g>';
+      return '<svg class="plant-art stage-'+stageKey+' '+(health<55?'sick':'')+'" viewBox="0 0 100 105" role="img" aria-label="'+esc(cropName(species))+' illustration, '+esc(stage)+' stage"><ellipse class="soil" cx="50" cy="96" rx="31" ry="5"/><g class="plant-shape" style="--stage-scale:'+stageScale+'">'+inner+'</g></svg>';
+    }
+    function avg(list,key){return list.length?list.reduce((s,p)=>s+num(p[key]),0)/list.length:0}
+    
+    function moistureFit(p){const targets={tomato:60,apple:58,banana:70,corn:60,rice:80,lettuce:65,wheat:50,potato:65,pepper:60,grape:55,mango:60,cucumber:65};const target=targets[String(p.species||"").toLowerCase()]||58;return Math.max(0,100-Math.abs(num(p.moisture)-target)*2.1)}
+    function scoreFor(plants){if(!plants.length)return 0;return Math.round(plants.reduce((total,p)=>total+num(p.health)*.7+moistureFit(p)*.3,0)/plants.length)}
+    function displayScore(f){return (f.plants||[]).length?scoreFor(f.plants):num(f.score)}
+    function scoreColor(v){return v>=85?"#39824b":v>=70?"#af8a2d":"#b45e48"}
+    function farmSummary(f){const ps=f.plants||[];return {plants:ps.length,species:new Set(ps.map(p=>String(p.species||"plant").toLowerCase())).size,health:Math.round(avg(ps,"health")),moisture:Math.round(avg(ps,"moisture")),yield:ps.reduce((s,p)=>s+num(p.yieldKg),0)}}
+    function iconSpecies(f){return f.plants?.[0]?.species||"tomato"}
+    function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2800)}
+    function canEdit(f){return demoSession?(f.ownerUid==="demo-owner"||f.editorEmails?.includes("demo@leafdoctor.local")):!!currentUser&&(f.ownerUid===currentUser.uid||(f.editorEmails||[]).includes((currentUser.email||"").toLowerCase()))}
+    function isOwner(f){return demoSession?f.ownerUid==="demo-owner":!!currentUser&&f.ownerUid===currentUser.uid}
+    function updateStatus(){
+      const label=document.getElementById("liveLabel");const authBtn=document.getElementById("authButton");const workspaceAuth=document.getElementById("workspaceAuth");
+      if(demoSession){label.textContent="LOCAL DEMO";authBtn.textContent="Demo farmer · Exit";workspaceAuth.textContent="Exit demo"}
+      else if(currentUser){label.textContent="FIREBASE CONNECTED";authBtn.textContent="Sign out";workspaceAuth.textContent="Signed in"}
+      else{label.textContent=READY?"PUBLIC FARM DATA":"LOCAL PREVIEW";authBtn.textContent="Sign in";workspaceAuth.textContent=READY?"Sign in to manage":"Preview as farmer"}
+      document.getElementById("previewBanner").style.display=READY&&!demoSession?"none":"block";
+      document.getElementById("newFarmButton").textContent=(currentUser||demoSession)?"＋ Add a farm":"＋ Sign in to add";
+    }
+    function card(f){
+      const s=farmSummary(f);return '<article class="farm-card" data-action="open-farm" data-id="'+esc(f.id)+'"><div class="farm-cover"><span class="tag">'+(canEdit(f)?"YOUR ACCESS":"COMMUNITY FARM")+'</span>'+art(iconSpecies(f),s.health,"Growing",f.plants?.[0]?.designType)+'</div><div class="farm-body"><div class="farm-title-row"><div><h3>'+esc(f.name)+'</h3><div class="location">⌖ '+esc(f.location||"Farm location")+'</div></div><div class="mini-score" style="color:'+scoreColor(displayScore(f))+'">'+displayScore(f)+' <small>/100</small></div></div><div class="farm-meta"><span><b>'+s.plants+'</b> plants</span><span><b>'+num(f.area).toFixed(1)</b> acres</span><span><b>'+s.health+'%</b> avg health</span></div></div></article>';
+    }
+    function renderPublic(){
+      const publicFarms=allFarms.filter(f=>f.isPublic!==false).sort((a,b)=>displayScore(b)-displayScore(a));
+      document.getElementById("publicFarmGrid").innerHTML=publicFarms.slice(0,3).map(card).join("")||'<div class="empty-state">No farms have been added yet.</div>';
+    }
+    function renderList(){
+      const accessible=allFarms.filter(f=>canEdit(f));const farmsToShow=accessible.length?accessible:allFarms.filter(f=>f.isPublic!==false).slice(0,3);
+      const title=document.getElementById("farmListTitle");
+      title.textContent=accessible.length?(demoSession?"Your demo farms":"Your farms and shared farms"):"Explore the public farms";
+      document.getElementById("farmList").innerHTML=farmsToShow.map(f=>'<div class="farm-list-item '+(f.id===selectedFarmId?"active":"")+'" data-action="open-farm" data-id="'+esc(f.id)+'"><div class="farm-thumb">'+art(iconSpecies(f),farmSummary(f).health,"Growing",f.plants?.[0]?.designType)+'</div><div><h4>'+esc(f.name)+'</h4><p>'+farmSummary(f).plants+' plants · '+esc(f.location||"")+'</p></div><span class="mini-score" style="color:'+scoreColor(displayScore(f))+'">'+displayScore(f)+'</span></div>').join("")||'<div class="empty-state"><div style="font-size:24px">🌿</div><strong>No farms in view yet</strong>Add a farm after signing in, or explore the community examples above.</div>';
+      if(selectedFarmId)renderDetail();else document.getElementById("farmDetail").innerHTML="";
+    }
+    function groupPlants(plants){const groups=new Map();for(const p of plants||[]){const k=String(p.species||"plant").toLowerCase();if(!groups.has(k))groups.set(k,[]);groups.get(k).push(p)}return [...groups.entries()]}
+    function renderDetail(){
+      const f=allFarms.find(x=>x.id===selectedFarmId);if(!f){document.getElementById("farmDetail").innerHTML="";return}
+      const s=farmSummary(f);const groups=groupPlants(f.plants);
+      document.getElementById("farmDetail").innerHTML='<div class="detail-wrap"><div class="detail-top"><div><h3>'+esc(f.name)+'</h3><p>⌖ '+esc(f.location||"Farm location")+' · '+num(f.area).toFixed(1)+' acres · Readings '+esc(f.updatedAt||"recently")+'</p></div><div class="score-pill"><strong style="color:'+scoreColor(displayScore(f))+'">'+displayScore(f)+'</strong><small>FARM VITALITY /100</small></div></div><div class="detail-metrics"><div class="detail-metric"><small>Plants</small><strong>'+s.plants+'</strong></div><div class="detail-metric"><small>Average health</small><strong>'+s.health+'%</strong></div><div class="detail-metric"><small>Average moisture</small><strong>'+s.moisture+'%</strong></div><div class="detail-metric"><small>Yield outlook</small><strong>'+s.yield.toFixed(1)+' kg</strong></div></div><div class="inventory"><div class="inventory-head"><div><h4>Crop collection</h4><span style="font-size:10px;color:#849186">Select a crop to see every individual plant.</span></div>'+(canEdit(f)?'<button class="btn btn-primary btn-small" data-action="add-plants" data-id="'+esc(f.id)+'">＋ Quick add plants</button>':'')+'</div><div class="inventory-grid">'+(groups.length?groups.map(([sp,ps])=>'<div class="crop-card" data-action="open-group" data-id="'+esc(f.id)+'" data-species="'+esc(sp)+'"><div class="crop-art">'+art(sp,avg(ps,"health"),ps[0].growthStage,ps[0].designType)+'</div><div><h5>'+esc(cropName(sp))+'</h5><div class="crop-count">'+ps.length+' individual '+(ps.length===1?"plant":"plants")+'</div><div class="crop-stats"><span>Health <b>'+Math.round(avg(ps,"health"))+'%</b></span><span>Moisture <b>'+Math.round(avg(ps,"moisture"))+'%</b></span></div></div><div class="crop-bottom"><span>'+esc(ps[0].growthStage||"Growing")+'</span><strong>'+ps.reduce((a,p)=>a+num(p.yieldKg),0).toFixed(1)+' kg outlook</strong></div></div>').join(""):'<div class="empty-state">No plants yet. Add your first crop to bring this farm to life.</div>')+'</div></div>'+(isOwner(f)?'<div class="share-row"><b>Farm access</b><span>Anyone can view · You decide who can edit</span><button class="btn btn-outline btn-small" data-action="share" data-id="'+esc(f.id)+'">Manage editors</button>'+(f.editorEmails||[]).map(e=>'<span class="share-chip">'+esc(e)+' <button title="Remove editor" data-action="remove-editor" data-id="'+esc(f.id)+'" data-email="'+esc(e)+'">×</button></span>').join("")+'</div>':canEdit(f)?'<div class="share-row"><b>Shared access</b><span>You can edit this farm.</span></div>':'<div class="share-row"><b>Public farm</b><span>View only · The farm owner controls edits.</span></div>')+'</div>';
+    }
+    function closeModal(){document.getElementById("modalRoot").innerHTML=""}
+    function modal(title,subtitle,body){document.getElementById("modalRoot").innerHTML='<div class="overlay" data-action="overlay-close"><section class="modal" role="dialog" aria-modal="true"><div class="modal-head"><div><h3>'+title+'</h3><p>'+subtitle+'</p></div><button class="close" data-action="close" aria-label="Close">×</button></div>'+body+'</section></div>'}
+    function showAuth(mode="signin"){
+      const signUp=mode==="signup";
+      modal(signUp?"Create your grower account":"Welcome back",READY?"Sign in to view and manage your farms.":"Explore the preview now. Add your Firebase key to connect a real account.",'<form id="authForm"><div class="field '+(signUp?"":"hidden")+'" id="displayNameField"><label>Your name</label><input name="name" autocomplete="name" placeholder="e.g. Harikrishnan"></div><div class="field"><label>Email address</label><input name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div><div class="field"><label>Password</label><input name="password" type="password" autocomplete="'+(signUp?"new-password":"current-password")+'" minlength="6" required placeholder="At least 6 characters"></div><div class="message" id="authMessage"></div><div class="form-note">'+(READY?"Your account is protected by Firebase Authentication.":"Local preview data is not shared with other devices. Firebase is not connected yet.")+'</div><div class="modal-actions"><button type="button" class="btn btn-quiet" data-action="switch-auth" data-mode="'+(signUp?"signin":"signup")+'">'+(signUp?"I already have an account":"Create an account")+'</button><button class="btn btn-primary" type="submit">'+(signUp?"Create account":"Sign in")+'</button></div>'+(READY?"":'<div style="text-align:center;margin-top:12px"><button type="button" class="btn btn-soft btn-small" data-action="demo">Continue with local demo</button></div>')+'</form>');
+    }
+    function newFarmModal(){
+      if(!currentUser&&!demoSession){showAuth();return}
+      modal("Add a farm","Start with a name and a place. You can add crops next.",'<form id="farmForm"><div class="field"><label>Farm name</label><input name="name" required maxlength="70" placeholder="e.g. Sunrise Garden"></div><div class="field"><label>Location</label><input name="location" required maxlength="100" placeholder="Town, region"></div><div class="field"><label>Area (acres)</label><input name="area" type="number" min="0" step="0.1" value="1"></div><div class="form-note">Your farm will be visible to everyone. Only you and invited editors can change its data.</div><div class="message" id="farmMessage"></div><div class="modal-actions"><button class="btn btn-outline" type="button" data-action="close">Cancel</button><button class="btn btn-primary" type="submit">Create farm</button></div></form>');
+    }
+    function addPlantsModal(id){
+      const f=allFarms.find(x=>x.id===id);if(!f||!canEdit(f))return;
+      modal("Add plants","Quick add a known crop or use a generic plant illustration for a new variety.",'<form id="plantForm" data-id="'+esc(id)+'"><div class="field-grid"><div class="field"><label>Crop or plant</label><select name="species"><option value="tomato">Tomato</option><option value="apple">Apple tree</option><option value="banana">Banana</option><option value="corn">Sweet corn</option><option value="rice">Rice</option><option value="lettuce">Lettuce</option><option value="wheat">Wheat</option><option value="potato">Potato</option><option value="pepper">Bell pepper</option><option value="grape">Grape vine</option><option value="mango">Mango tree</option><option value="cucumber">Cucumber</option><option value="custom">New / other plant</option></select></div><div class="field"><label>Number of plants</label><input name="count" type="number" min="1" max="250" value="1" required></div></div><div class="field hidden" id="customNameField"><label>Plant name</label><input name="customName" maxlength="40" placeholder="e.g. Dragon fruit"><label style="margin-top:8px">Fallback illustration</label><select name="designType"><option value="plant">Generic plant</option><option value="tree">Tree</option><option value="weed">Weed</option></select></div><div class="field-grid"><div class="field"><label>Growth stage</label><select name="growthStage"><option>Seedling</option><option selected>Growing</option><option>Flowering</option><option>Fruiting</option><option>Harvest ready</option></select></div><div class="field"><label>Expected yield / plant (kg)</label><input name="yieldKg" type="number" min="0" step="0.1" value="1"></div></div><div class="form-note">New varieties get a generic plant, tree, or weed illustration. Each added plant gets its own health and moisture readings.</div><div class="message" id="plantMessage"></div><div class="modal-actions"><button class="btn btn-outline" type="button" data-action="close">Cancel</button><button class="btn btn-primary" type="submit">Add plants</button></div></form>');
+      document.querySelector('select[name="species"]').addEventListener("change",e=>document.getElementById("customNameField").classList.toggle("hidden",e.target.value!=="custom"));
+    }
+    function groupModal(id,species){
+      const f=allFarms.find(x=>x.id===id);const plants=(f?.plants||[]).filter(p=>String(p.species||"plant").toLowerCase()===species);if(!f)return;
+      modal(esc(cropName(species)),plants.length+" individual plants · select each reading in the admin control room.",'<div class="unit-list">'+plants.map((p,i)=>'<div class="unit-row">'+art(species,p.health,p.growthStage,p.designType)+'<div><strong>'+esc(p.label||cropName(species))+' · '+String(i+1).padStart(2,"0")+'</strong><small>'+esc(p.growthStage||"Growing")+' · expected yield '+num(p.yieldKg).toFixed(1)+' kg</small><div class="unit-values"><span>Health <b>'+num(p.health)+'%</b></span><span>Moisture <b>'+num(p.moisture)+'%</b></span></div></div><span style="font-size:10px;color:#42804e">● '+(num(p.health)>=75?"Healthy":num(p.health)>=50?"Needs a look":"At risk")+'</span></div>').join("")+'</div><div class="form-note">Plant drawings animate as the virtual crop grows. Detailed sensor readings are entered in the secure admin page.</div>');
+    }
+    function shareModal(id){
+      const f=allFarms.find(x=>x.id===id);if(!f||!isOwner(f))return;
+      modal("Invite a farm editor","Add a grower's sign-in email. They can view and update this farm after signing in.",'<form id="shareForm" data-id="'+esc(id)+'"><div class="field"><label>Editor email</label><input name="email" type="email" required placeholder="grower@example.com"></div><div class="form-note">Only the farm owner can add or remove editors. Keep the email the person uses for Firebase sign-in.</div><div class="message" id="shareMessage"></div><div class="modal-actions"><button class="btn btn-outline" type="button" data-action="close">Cancel</button><button class="btn btn-primary" type="submit">Invite editor</button></div></form>');
+    }
+    function demoStart(){
+      demoSession=true;currentUser=null;allFarms=readDemo();selectedFarmId=allFarms.find(f=>f.ownerUid==="demo-owner")?.id||allFarms[0]?.id;closeModal();updateStatus();renderAll();document.getElementById("my-farms").scrollIntoView({behavior:"smooth"});showToast("Local demo opened — changes stay in this browser.");
+    }
+    function renderAll(){renderPublic();renderList();updateStatus()}
+    async function loadFirebase(){
+      if(!READY){allFarms=readDemo();renderAll();return}
+      if(publicFarmsUnsub){publicFarmsUnsub();publicFarmsUnsub=null}
+      farmListeners.forEach(unsub=>unsub());farmListeners.clear();
+      publicFarmsUnsub=onSnapshot(query(collection(db,"farms"),where("isPublic","==",true)),snap=>{
+        const previous=new Map(allFarms.map(f=>[f.id,f]));const next=snap.docs.map(d=>({id:d.id,...d.data(),plants:previous.get(d.id)?.plants||[]}));
+        const ids=new Set(next.map(f=>f.id));
+        for(const [id,unsub] of farmListeners){if(!ids.has(id)){unsub();farmListeners.delete(id)}}
+        allFarms=next;if(selectedFarmId&&!ids.has(selectedFarmId))selectedFarmId=null;
+        for(const f of allFarms)if(!farmListeners.has(f.id))watchFarm(f.id);
+        renderAll();
+      },err=>{console.error(err);showToast("Could not load farms. Check Firestore rules and connection.");});
+    }
+    function watchFarm(id){
+      const plantUnsub=onSnapshot(collection(db,"farms",id,"plants"),snap=>{
+        const f=allFarms.find(x=>x.id===id);if(!f)return;
+        f.plants=snap.docs.map(d=>({id:d.id,...d.data()}));renderAll();
+      },err=>console.error("Plant stream unavailable",err));
+      farmListeners.set(id,plantUnsub);
+    }
+    async function refreshDemo(){allFarms=readDemo();renderAll()}
+    async function saveFarmDoc(farm){
+      if(demoSession){allFarms.push(farm);persistDemo();renderAll();return farm.id}
+      const ref=await addDoc(collection(db,"farms"),farm);return ref.id;
+    }
+    async function addPlantRecord(farmId,p){
+      if(demoSession){const f=allFarms.find(x=>x.id===farmId);f.plants.push(p);persistDemo();return}
+      await addDoc(collection(db,"farms",farmId,"plants"),p);
+    }
+    async function addFarmSubmit(form){
+      const fd=new FormData(form);const farm={name:String(fd.get("name")).trim(),location:String(fd.get("location")).trim(),area:num(fd.get("area"),1),score:0,ownerUid:demoSession?"demo-owner":currentUser.uid,ownerEmail:demoSession?"demo@leafdoctor.local":(currentUser.email||"").toLowerCase(),editorEmails:[],isPublic:true,dailyScores:[],updatedAt:"Just added"};
+      try{
+        if(demoSession){farm.id="farm-"+Date.now();farm.plants=[];await saveFarmDoc(farm);selectedFarmId=farm.id}
+        else{const id=await saveFarmDoc(farm);farm.id=id;farm.plants=[];selectedFarmId=id}
+        closeModal();renderAll();showToast("Farm created. Add your first plants.");
+      }catch(e){document.getElementById("farmMessage").textContent=e.message||"Could not create farm. Check database permissions."}
+    }
+    async function addPlantsSubmit(form){
+      const fd=new FormData(form);const f=allFarms.find(x=>x.id===form.dataset.id);if(!f)return;
+      let species=String(fd.get("species"));let label=cropName(species);if(species==="custom"){label=String(fd.get("customName")).trim()||"Plant";species=label.toLowerCase().replace(/[^a-z0-9]+/g,"-")}
+      const count=Math.max(1,Math.min(250,num(fd.get("count"),1)));
+      try{
+        for(let i=0;i<count;i++){await addPlantRecord(f.id,{species,label,designType:String(fd.get("species"))==="custom"?String(fd.get("designType")||"plant"):"plant",health:80,moisture:55,yieldKg:num(fd.get("yieldKg"),1),growthStage:String(fd.get("growthStage")),soilPh:6.5,tempC:24,notes:"",createdAt:new Date().toISOString()})}
+        if(demoSession){f.score=scoreFor(f.plants);persistDemo();renderAll()}
+        closeModal();showToast(count+" plant"+(count===1?"":"s")+" added to "+f.name+".");
+      }catch(e){document.getElementById("plantMessage").textContent=e.message||"Could not add plants. Check your access."}
+    }
+    async function shareSubmit(form){
+      const f=allFarms.find(x=>x.id===form.dataset.id);const email=String(new FormData(form).get("email")).trim().toLowerCase();if(!f||!email)return;
+      try{if(demoSession){if(!f.editorEmails.includes(email))f.editorEmails.push(email);persistDemo()}else await updateDoc(doc(db,"farms",f.id),{editorEmails:arrayUnion(email)});
+        closeModal();renderAll();showToast("Editor invited by email.");}
+      catch(e){document.getElementById("shareMessage").textContent=e.message||"Could not update farm access."}
+    }
+    async function removeEditor(id,email){
+      const f=allFarms.find(x=>x.id===id);if(!f||!isOwner(f))return;
+      try{if(demoSession){f.editorEmails=f.editorEmails.filter(x=>x!==email);persistDemo()}else await updateDoc(doc(db,"farms",id),{editorEmails:arrayRemove(email)});renderAll();showToast("Editor access removed.");}
+      catch(e){showToast("Could not remove editor. Check your access.")}
+    }
+    function authError(e){return ({ "auth/invalid-credential":"Email or password is incorrect.","auth/email-already-in-use":"That email already has an account.","auth/weak-password":"Use a password with at least 6 characters.","auth/invalid-email":"Enter a valid email address.","auth/network-request-failed":"Network connection failed."})[e.code]||e.message||"Sign-in failed."}
+    async function authSubmit(form){
+      if(!READY){document.getElementById("authMessage").textContent="Add your Firebase API key to connect accounts. Use the local demo to explore the interface.";return}
+      const fd=new FormData(form);const email=String(fd.get("email")).trim().toLowerCase();const pass=String(fd.get("password"));const signup=!document.getElementById("displayNameField").classList.contains("hidden");
+      try{
+        if(signup){const cred=await createUserWithEmailAndPassword(auth,email,pass);const name=String(fd.get("name")).trim();if(name)await updateProfile(cred.user,{displayName:name});await setDoc(doc(db,"users",cred.user.uid),{email,displayName:name,role:"farmer",createdAt:new Date().toISOString()});}
+        else await signInWithEmailAndPassword(auth,email,pass);
+        closeModal();showToast(signup?"Account created. Welcome to your farm.":"Signed in.");
+      }catch(e){document.getElementById("authMessage").textContent=authError(e)}
+    }
+    document.addEventListener("click",async e=>{
+      const t=e.target.closest("[data-action]");if(!t)return;const a=t.dataset.action;
+      if(a==="auth"){if(currentUser){await signOut(auth)}else if(demoSession){demoSession=false;selectedFarmId=null;allFarms=readDemo();renderAll()}else showAuth()}
+      if(a==="workspace-auth"){if(demoSession){demoSession=false;selectedFarmId=null;allFarms=readDemo();renderAll()}else if(currentUser){showToast("You are signed in. Choose a farm to continue.")}else if(READY){showAuth()}else demoStart()}
+      if(a==="demo")demoStart();
+      if(a==="switch-auth")showAuth(t.dataset.mode);
+      if(a==="close")closeModal();
+      if(a==="overlay-close"&&e.target===t)closeModal();
+      if(a==="new-farm")newFarmModal();
+      if(a==="add-plants")addPlantsModal(t.dataset.id);
+      if(a==="share")shareModal(t.dataset.id);
+      if(a==="remove-editor"){e.stopPropagation();removeEditor(t.dataset.id,t.dataset.email)}
+      if(a==="open-farm"){selectedFarmId=t.dataset.id;renderList();document.getElementById("my-farms").scrollIntoView({behavior:"smooth",block:"center"})}
+      if(a==="open-group")groupModal(t.dataset.id,t.dataset.species);
+      if(a==="open-demo-as-farmer")demoStart();
+    });
+    document.addEventListener("submit",e=>{
+      if(e.target.id==="authForm"){e.preventDefault();authSubmit(e.target)}
+      if(e.target.id==="farmForm"){e.preventDefault();addFarmSubmit(e.target)}
+      if(e.target.id==="plantForm"){e.preventDefault();addPlantsSubmit(e.target)}
+      if(e.target.id==="shareForm"){e.preventDefault();shareSubmit(e.target)}
+    });
+    if(READY){
+      try{
+        app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);
+        onAuthStateChanged(auth,async user=>{currentUser=user;demoSession=false;allFarms=[];selectedFarmId=null;await loadFirebase();updateStatus();});
+      }catch(e){console.error(e);allFarms=readDemo();renderAll();showToast("Firebase could not start. Verify the web app configuration.");}
+    }else{allFarms=readDemo();renderAll()}
+    updateStatus();
+  </script>
+</body>
+</html>

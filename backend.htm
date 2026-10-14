@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#123d2d">
+  <title>Admin control room — The Leaf Doctor</title>
+  <style>
+    :root{--forest:#123d2d;--green:#3c8b50;--mint:#e4f2e1;--ink:#18372b;--muted:#77867a;--line:#e2eae0;--bg:#f6f9f4;--amber:#f1c96a;--red:#b64f43;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer}.shell{max-width:1190px;padding:0 25px;margin:auto}.top{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:11px;font-size:18px;font-weight:850;letter-spacing:-.04em}.logo{height:38px;width:38px;border-radius:13px;background:var(--forest);color:#fff;display:grid;place-items:center;font-size:20px}.top-right{display:flex;align-items:center;gap:12px;color:#738276;font-size:11px}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#50a665;margin-right:7px;box-shadow:0 0 0 4px #50a66520}.top a{color:#5c765f;text-decoration:none}.main{padding:33px 0 55px}.heading{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:24px}.eyebrow{text-transform:uppercase;font-size:10px;letter-spacing:.15em;color:#558b5e;font-weight:850}.heading h1{font-size:35px;letter-spacing:-.055em;margin:8px 0 6px}.heading p{margin:0;color:var(--muted);font-size:13px}.btn{border:0;border-radius:12px;padding:11px 15px;font-size:12px;font-weight:800}.primary{background:var(--forest);color:#fff}.outline{background:#fff;color:var(--forest);border:1px solid #dce7da}.soft{background:#e7f2e4;color:#2d6940}.card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 30px #1d4c3210}.auth-layout{display:grid;grid-template-columns:1fr 1fr;gap:17px}.auth-card{padding:24px}.auth-card h2{font-size:20px;letter-spacing:-.04em;margin:0}.auth-card>p{font-size:12px;color:var(--muted);margin:8px 0 19px;line-height:1.5}.field{display:grid;gap:6px;margin:11px 0}.field label{font-size:11px;font-weight:750;color:#607264}.field input,.field select{width:100%;border:1px solid #dfe8dc;border-radius:10px;background:#fff;padding:12px;color:#234531;outline:none}.field input:focus,.field select:focus{border-color:#79ab7d;box-shadow:0 0 0 3px #79ab7d20}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.message{min-height:17px;color:#ad5144;font-size:11px;margin:8px 0}.setup{padding:24px;background:linear-gradient(145deg,#17442f,#245d3c);color:white;position:relative;overflow:hidden}.setup:after{content:"";position:absolute;right:-35px;bottom:-70px;width:210px;height:210px;border-radius:50%;border:1px solid #ffffff19;box-shadow:0 0 0 28px #ffffff08,0 0 0 56px #ffffff05}.setup h2{font-size:19px;margin:0 0 8px}.setup p{font-size:12px;color:#d2e3d2;line-height:1.6;margin:0 0 15px;max-width:480px}.setup-list{display:grid;gap:9px;position:relative;z-index:1}.setup-item{display:flex;gap:10px;align-items:start;font-size:11px;color:#e5efe2;line-height:1.5}.check{height:20px;width:20px;flex:none;border-radius:7px;background:#ffffff15;display:grid;place-items:center;color:#a6d7a7;font-weight:900}.config-note{margin-top:17px;border:1px solid #ffffff25;background:#ffffff0a;padding:11px 12px;border-radius:11px;color:#e6d8a6;font-size:10px;line-height:1.5}.setup details{position:relative;z-index:1;margin-top:13px}.setup summary{font-weight:750;font-size:11px;color:#d8edcf;cursor:pointer}.setup pre{white-space:pre-wrap;word-break:break-word;background:#0b2c1d;padding:14px;border-radius:10px;color:#d9edda;font-size:9px;line-height:1.5;max-height:300px;overflow:auto}.panel{padding:19px;margin-top:18px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.panel-head h2{font-size:17px;margin:0;letter-spacing:-.03em}.panel-head p{font-size:10px;color:var(--muted);margin:4px 0 0}.farm-picker{display:flex;align-items:end;gap:12px;flex-wrap:wrap}.farm-picker .field{margin:0;min-width:210px;flex:1}.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}.stat{background:#f7faf5;border:1px solid #e8eee6;border-radius:14px;padding:13px 14px}.stat small{font-size:9px;color:#839084}.stat strong{display:block;font-size:18px;letter-spacing:-.04em;margin-top:5px}.table-wrap{overflow:auto;border:1px solid #e5ece3;border-radius:13px}.plants-table{width:100%;border-collapse:collapse;min-width:800px}.plants-table th{background:#f5f8f3;text-transform:uppercase;letter-spacing:.08em;font-size:9px;color:#77877b;text-align:left;padding:12px 10px}.plants-table td{padding:9px 10px;border-top:1px solid #edf1eb;font-size:11px;vertical-align:middle}.plants-table input,.plants-table select{width:90px;padding:8px 8px;border:1px solid #e0e8dd;border-radius:8px;color:#264731;background:white;font-size:11px}.plants-table input[type=number]{width:77px}.plant-name{display:flex;align-items:center;gap:9px;min-width:135px}.plant-icon{width:34px;height:36px;border-radius:9px;background:#edf6e9;display:grid;place-items:center;font-size:20px}.plant-name strong{display:block;font-size:11px}.plant-name small{display:block;color:#829086;font-size:9px;margin-top:3px}.row-health{display:inline-block;padding:5px 7px;border-radius:7px;background:#e9f5e8;color:#3d7e4a;font-weight:800;font-size:10px}.savebar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}.savebar span{color:#77867a;font-size:10px}.history{display:grid;grid-template-columns:1.2fr .8fr;gap:15px;margin-top:14px}.history-card{padding:17px}.history-card h3{font-size:13px;margin:0 0 12px}.score-chart{height:120px;display:flex;align-items:end;gap:8px;padding:10px 4px 22px;border-bottom:1px solid #e2eae0}.bar-wrap{flex:1;height:100%;display:flex;align-items:end;justify-content:center;position:relative}.bar{width:min(28px,70%);min-height:4px;border-radius:7px 7px 2px 2px;background:linear-gradient(180deg,#7bbe77,#3b8650);transition:height .3s}.bar-label{position:absolute;bottom:-18px;font-size:8px;color:#89968b}.bar-value{position:absolute;top:-16px;font-size:8px;color:#56815b}.reading-note{font-size:10px;line-height:1.6;color:#7e8c81}.reading-note strong{color:#3d6045}.health-chip{display:inline-flex;gap:6px;align-items:center;padding:7px 9px;border-radius:999px;background:#edf5e9;color:#507b54;font-size:10px;font-weight:750}.read-only{padding:11px 12px;background:#f5f8f3;border:1px solid #e7eee4;border-radius:11px;font-size:10px;color:#77867a;line-height:1.5;margin:12px 0}.empty{padding:25px;text-align:center;color:#859187;font-size:12px}.footer{padding:20px 0 30px;font-size:10px;color:#879388;display:flex;justify-content:space-between}.hidden{display:none!important}.preview-label{display:inline-block;background:#fff1d7;border:1px solid #efdfba;color:#876625;padding:7px 9px;border-radius:9px;font-size:9px;font-weight:800}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,100px);padding:12px 16px;background:#143c2b;color:white;border-radius:12px;box-shadow:0 15px 30px #102b1c35;font-size:12px;transition:.25s;z-index:5}.toast.show{transform:translate(-50%,0)}@media(max-width:850px){.auth-layout{grid-template-columns:1fr}.history{grid-template-columns:1fr}.heading h1{font-size:30px}}@media(max-width:600px){.shell{padding:0 15px}.heading{align-items:start;flex-direction:column}.main{padding-top:24px}.stat-grid{grid-template-columns:repeat(2,1fr)}.form-row{grid-template-columns:1fr}.auth-card,.setup{padding:19px}.footer{flex-direction:column;gap:6px}}
+  </style>
+</head>
+<body>
+  <header class="shell top"><a class="brand" href="./index.htm"><span class="logo">✿</span>The Leaf Doctor <span style="font-size:10px;font-weight:650;color:#829084;letter-spacing:0">/ admin</span></a><div class="top-right"><span><i class="dot"></i><span id="connectionText">AUTHENTICATION REQUIRED</span></span><a href="./index.htm">← Farm view</a></div></header>
+  <main class="shell main">
+    <div class="heading"><div><div class="eyebrow">Sensor readings & farm health</div><h1>Admin control room</h1><p>Update plant readings. Each save refreshes the farm vitality score and its daily history.</p></div><span class="preview-label" id="previewLabel">SECURE FIREBASE SIGN-IN</span></div>
+    <section class="auth-layout" id="authLayout">
+      <div class="card auth-card">
+        <h2>Admin sign in</h2>
+        <p>Use an account provisioned in Firebase Authentication and assigned the admin role in Firestore.</p>
+        <form id="loginForm">
+          <div class="field"><label>Admin email</label><input name="email" type="email" autocomplete="username" required placeholder="admin@example.com"></div>
+          <div class="field"><label>Password</label><input name="password" type="password" autocomplete="current-password" required placeholder="Your Firebase password"></div>
+          <div class="message" id="loginMessage"></div>
+          <button class="btn primary" type="submit" id="loginButton">Sign in securely</button>
+          <button class="btn soft" type="button" id="previewButton" style="margin-left:7px">Preview sample data</button>
+        </form>
+        <div class="read-only">This page does not contain a built-in password. Browser pages are visible to visitors; Firebase Authentication and Firestore Security Rules must protect admin access.</div>
+      </div>
+      <div class="card setup">
+        <h2>Connect this page to your Firebase project</h2>
+        <p>The API key in your project details was not included yet. Add it in the Firebase configuration inside this file, then complete these one-time steps.</p>
+        <div class="setup-list">
+          <div class="setup-item"><span class="check">1</span><span>Enable <strong>Email/Password</strong> in Firebase Authentication and create the admin account there.</span></div>
+          <div class="setup-item"><span class="check">2</span><span>In Firestore, create <code>users/{adminUid}</code> with <code>role: "admin"</code>. The UID comes from Authentication.</span></div>
+          <div class="setup-item"><span class="check">3</span><span>Create the Firestore database, publish the access rules below, and host both HTML files on Firebase Hosting or another HTTPS host.</span></div>
+          <div class="setup-item"><span class="check">4</span><span>Add the Firebase web API key to both pages. The key identifies the project; Firestore rules protect its data.</span></div>
+        </div>
+        <div class="config-note">The provided username and password are not embedded here. A password in HTML could be read by anyone. For access, create a Firebase Auth account and grant its UID the admin role.</div>
+        <details><summary>View a starting Firestore ruleset</summary><pre id="rulesText"></pre></details>
+      </div>
+    </section>
+    <section class="card panel hidden" id="adminPanel">
+      <div class="panel-head"><div><h2>Live farm readings</h2><p id="adminIdentity">Signed in as admin</p></div><div style="display:flex;gap:8px;align-items:center"><span class="health-chip">● Admin verified</span><button class="btn outline" id="signOutButton">Sign out</button></div></div>
+      <div class="farm-picker"><div class="field"><label>Choose a farm</label><select id="farmSelect"><option value="">Loading farms…</option></select></div><button class="btn outline" id="reloadButton">Refresh farms</button></div>
+      <div id="farmEditor"><div class="empty">Choose a farm to edit its plant readings.</div></div>
+    </section>
+    <section class="card panel hidden" id="previewPanel">
+      <div class="panel-head"><div><h2>Sample farm readings</h2><p>Example view only. Sign in to enter live data.</p></div><span class="preview-label">READ ONLY PREVIEW</span></div>
+      <div class="farm-picker"><div class="field"><label>Sample farm</label><select id="previewFarmSelect"><option value="meadow">Morning Meadow Farm · Nashik</option><option value="orchard">Riverbend Orchard · Coorg</option></select></div><span class="health-chip">Vitality score · <b id="previewScore">91</b>/100</span></div>
+      <div id="previewTable"></div>
+    </section>
+  </main>
+  <footer class="shell footer"><span>The Leaf Doctor · Admin console</span><span>Health score is an illustrative indicator; calibrate it with crop-specific agronomy before using it for investment decisions.</span></footer>
+  <div class="toast" id="toast"></div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+    import { getFirestore, collection, doc, getDoc, getDocs, query, where, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyC8mB015N_UGUBiVokx8K3KNvHMr5ADW4o",
+      authDomain: "the-sustainable-you.firebaseapp.com",
+      projectId: "the-sustainable-you",
+      storageBucket: "the-sustainable-you.firebasestorage.app",
+      messagingSenderId: "243575624436",
+      appId: "1:243575624436:web:3f1b17a0d31b3aeb2184a1",
+      measurementId: "G-CMN9Y3Y99R"
+    };
+    const READY = firebaseConfig.apiKey && firebaseConfig.apiKey !== "PASTE_YOUR_FIREBASE_WEB_API_KEY";
+    let app=null, auth=null, db=null, selectedFarm=null, plants=[], farmUnsub=null, plantsUnsub=null;
+    const previewFarms={
+      meadow:{id:"demo-meadow",name:"Morning Meadow Farm",location:"Nashik, Maharashtra",area:12.4,score:91,dailyScores:[84,86,85,89,87,90,91],plants:[
+        {id:"t1",species:"tomato",label:"Tomato",health:94,moisture:58,yieldKg:4.8,growthStage:"Fruiting",soilPh:6.4,tempC:24,notes:"Flowering steadily"},
+        {id:"t2",species:"tomato",label:"Tomato",health:88,moisture:52,yieldKg:4.3,growthStage:"Fruiting",soilPh:6.5,tempC:25,notes:"Healthy new leaves"},
+        {id:"t3",species:"tomato",label:"Tomato",health:91,moisture:56,yieldKg:4.5,growthStage:"Flowering",soilPh:6.3,tempC:24,notes:""},
+        {id:"l1",species:"lettuce",label:"Lettuce",health:90,moisture:64,yieldKg:0.7,growthStage:"Leafing",soilPh:6.6,tempC:21,notes:""},
+        {id:"b1",species:"banana",label:"Banana",health:88,moisture:68,yieldKg:13,growthStage:"Growing",soilPh:6.2,tempC:27,notes:""}
+      ]},
+      orchard:{id:"demo-river",name:"Riverbend Orchard",location:"Coorg, Karnataka",area:8.2,score:89,dailyScores:[82,83,84,85,86,87,89],plants:[
+        {id:"a1",species:"apple",label:"Apple tree",health:89,moisture:57,yieldKg:18,growthStage:"Fruiting",soilPh:6.2,tempC:22,notes:""},
+        {id:"a2",species:"apple",label:"Apple tree",health:84,moisture:55,yieldKg:16,growthStage:"Fruiting",soilPh:6.3,tempC:22,notes:""},
+        {id:"c1",species:"corn",label:"Sweet corn",health:83,moisture:60,yieldKg:1.4,growthStage:"Tasseling",soilPh:6.1,tempC:26,notes:""}
+      ]}
+    };
+    const rules=[
+      "rules_version = '2';",
+      "service cloud.firestore {",
+      "  match /databases/{database}/documents {",
+      "    function signedIn() { return request.auth != null; }",
+      "    function isAdmin() {",
+      "      return signedIn()",
+      "        && exists(/databases/$(database)/documents/users/$(request.auth.uid))",
+      "        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';",
+      "    }",
+      "    function farmDoc(farmId) {",
+      "      return get(/databases/$(database)/documents/farms/$(farmId)).data;",
+      "    }",
+      "    function isOwner(farmId) {",
+      "      return signedIn() && farmDoc(farmId).ownerUid == request.auth.uid;",
+      "    }",
+      "    function isEditor(farmId) {",
+      "      return signedIn() && ('editorEmails' in farmDoc(farmId))",
+      "        && request.auth.token.email in farmDoc(farmId).editorEmails;",
+      "    }",
+      "    match /users/{uid} {",
+      "      allow create: if signedIn() && request.auth.uid == uid",
+      "                    && request.resource.data.role == 'farmer';",
+      "      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());",
+      "      allow update: if signedIn() && request.auth.uid == uid",
+      "                    && request.resource.data.role == resource.data.role;",
+      "    }",
+      "    match /farms/{farmId} {",
+      "      allow read: if resource.data.isPublic == true || isOwner(farmId) || isEditor(farmId) || isAdmin();",
+      "      allow create: if signedIn() && request.resource.data.ownerUid == request.auth.uid;",
+      "      allow update, delete: if isOwner(farmId) || isAdmin();",
+      "      match /plants/{plantId} {",
+      "        allow read: if farmDoc(farmId).isPublic == true || isOwner(farmId) || isEditor(farmId) || isAdmin();",
+      "        allow create, update, delete: if isOwner(farmId) || isEditor(farmId) || isAdmin();",
+      "      }",
+      "    }",
+      "  }",
+      "}"
+    ].join("\n");
+    document.getElementById("rulesText").textContent=rules;
+    const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+    const n=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
+    const mean=(a,k)=>a.length?a.reduce((s,p)=>s+n(p[k]),0)/a.length:0;
+    const moistureFit=p=>{const targets={tomato:60,apple:58,banana:70,corn:60,rice:80,lettuce:65,wheat:50,potato:65,pepper:60,grape:55,mango:60,cucumber:65};const target=targets[String(p.species||"").toLowerCase()]||58;return Math.max(0,100-Math.abs(n(p.moisture)-target)*2.1)};
+    const farmScore=a=>a.length?Math.round(a.reduce((total,p)=>total+n(p.health)*.7+moistureFit(p)*.3,0)/a.length):0;
+    const cropName=s=>({tomato:"Tomato",apple:"Apple tree",banana:"Banana",corn:"Sweet corn",rice:"Rice",lettuce:"Lettuce",wheat:"Wheat",potato:"Potato",pepper:"Bell pepper",grape:"Grape vine",mango:"Mango tree",cucumber:"Cucumber"})[String(s||"").toLowerCase()]||s||"Plant";
+    const emoji=s=>({tomato:"🍅",apple:"🍎",banana:"🍌",corn:"🌽",rice:"🌾",lettuce:"🥬",wheat:"🌾",potato:"🥔",pepper:"🫑",grape:"🍇",mango:"🥭",cucumber:"🥒"})[String(s||"").toLowerCase()]||"🌿";
+    function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2800)}
+    const tableMarkup=(items,editable)=>'<div class="table-wrap"><table class="plants-table"><thead><tr><th>Plant</th><th>Health %</th><th>Moisture %</th><th>Growth stage</th><th>Yield / plant kg</th><th>Soil pH</th><th>Temp °C</th><th>Notes</th></tr></thead><tbody>'+items.map((p,i)=>'<tr><td><div class="plant-name"><span class="plant-icon">'+emoji(p.species)+'</span><div><strong>'+esc(p.label||cropName(p.species))+' · '+String(i+1).padStart(2,"0")+'</strong><small>'+esc(p.species||"plant")+' · '+esc(p.id)+'</small></div></div></td><td>'+(editable?'<input type="number" min="0" max="100" step="1" value="'+n(p.health)+'" data-plant="'+esc(p.id)+'" data-field="health">':'<span class="row-health">'+n(p.health)+'%</span>')+'</td><td>'+(editable?'<input type="number" min="0" max="100" step="1" value="'+n(p.moisture)+'" data-plant="'+esc(p.id)+'" data-field="moisture">':n(p.moisture)+'%')+'</td><td>'+(editable?'<select data-plant="'+esc(p.id)+'" data-field="growthStage">'+["Seedling","Growing","Leafing","Flowering","Fruiting","Tasseling","Tillering","Harvest ready","Dormant"].map(x=>'<option '+(x===p.growthStage?"selected":"")+'>'+x+'</option>').join("")+'</select>':esc(p.growthStage||"Growing"))+'</td><td>'+(editable?'<input type="number" min="0" step="0.1" value="'+n(p.yieldKg).toFixed(1)+'" data-plant="'+esc(p.id)+'" data-field="yieldKg">':n(p.yieldKg).toFixed(1))+'</td><td>'+(editable?'<input type="number" min="0" max="14" step="0.1" value="'+n(p.soilPh,6.5).toFixed(1)+'" data-plant="'+esc(p.id)+'" data-field="soilPh">':n(p.soilPh,6.5).toFixed(1))+'</td><td>'+(editable?'<input type="number" step="0.1" value="'+n(p.tempC,24).toFixed(1)+'" data-plant="'+esc(p.id)+'" data-field="tempC">':n(p.tempC,24).toFixed(1))+'</td><td>'+(editable?'<input style="width:135px" type="text" value="'+esc(p.notes||"")+'" maxlength="120" data-plant="'+esc(p.id)+'" data-field="notes">':esc(p.notes||"—"))+'</td></tr>').join("")+'</tbody></table></div>';
+    function showHistory(f){
+      const raw=f.dailyScores||[];const vals=raw.map(x=>typeof x==="number"?x:n(x.score)).filter(Number.isFinite).slice(-7);if(!vals.length)vals.push(n(f.score));
+      const bars=vals.map((v,i)=>'<div class="bar-wrap"><span class="bar-value">'+v+'</span><div class="bar" style="height:'+Math.max(7,Math.min(100,v))+'%"></div><span class="bar-label">'+(i===vals.length-1?"Today":"D-"+(vals.length-1-i))+'</span></div>').join("");
+      return '<div class="history"><div class="card history-card"><h3>Recent farm vitality</h3><div class="score-chart">'+bars+'</div></div><div class="card history-card"><h3>Reading guide</h3><div class="reading-note"><strong>Health</strong> reflects the crop health value supplied by your field system.<br><strong>Moisture</strong> is entered as a percent for a quick visual check.<br><strong>Yield outlook</strong> is the expected kilograms per individual plant.<br><br>Vitality blends health (70%) with crop moisture fit (30%). Moisture targets are starting estimates. A save records one daily snapshot; later saves that day replace it.</div></div></div>';
+    }
+    function renderEditor(){
+      const root=document.getElementById("farmEditor");if(!selectedFarm){root.innerHTML='<div class="empty">Choose a farm to edit its plant readings.</div>';return}
+      const total=plants.length,health=Math.round(mean(plants,"health")),moisture=Math.round(mean(plants,"moisture")),yieldKg=plants.reduce((s,p)=>s+n(p.yieldKg),0),score=farmScore(plants);
+      root.innerHTML='<div class="stat-grid"><div class="stat"><small>INDIVIDUAL PLANTS</small><strong>'+total+'</strong></div><div class="stat"><small>AVERAGE HEALTH</small><strong>'+health+'%</strong></div><div class="stat"><small>AVERAGE MOISTURE</small><strong>'+moisture+'%</strong></div><div class="stat"><small>CALCULATED VITALITY</small><strong>'+score+' / 100</strong></div></div>'+(total?tableMarkup(plants,true):'<div class="empty">This farm has no plants yet. Add crops from the farm page first.</div>')+'<div class="savebar"><span id="dirtyText">Plant data is up to date. Score is recalculated from current readings.</span><button class="btn primary" id="saveButton" '+(!total?"disabled":"")+'>Save readings & update score</button></div>'+showHistory({...selectedFarm,score});
+      document.querySelectorAll("#farmEditor [data-field]").forEach(input=>input.addEventListener("input",updateLocalPlant));
+      document.querySelectorAll("#farmEditor [data-field]").forEach(input=>input.addEventListener("change",updateLocalPlant));
+      document.getElementById("saveButton")?.addEventListener("click",saveReadings);
+    }
+    function updateLocalPlant(e){
+      const p=plants.find(x=>x.id===e.target.dataset.plant);if(!p)return;const key=e.target.dataset.field;
+      p[key]=["health","moisture","yieldKg","soilPh","tempC"].includes(key)?n(e.target.value):e.target.value;
+      document.getElementById("dirtyText").textContent="Unsaved edits — save to publish the new readings and vitality score.";
+      const old=document.querySelector("#farmEditor .stat:nth-child(4) strong");if(old)old.textContent=farmScore(plants)+" / 100";
+    }
+    async function saveReadings(){
+      if(!selectedFarm||!db)return;const btn=document.getElementById("saveButton");btn.disabled=true;btn.textContent="Saving…";
+      try{
+        const stamp=new Date();const today=stamp.toISOString().slice(0,10);const iso=stamp.toISOString();
+        for(const p of plants){
+          const snapshot={at:iso,health:n(p.health),moisture:n(p.moisture),yieldKg:n(p.yieldKg),growthStage:p.growthStage,soilPh:n(p.soilPh),tempC:n(p.tempC),notes:p.notes||""};
+          const history=[...(p.history||[]),snapshot].slice(-30);
+          await updateDoc(doc(db,"farms",selectedFarm.id,"plants",p.id),{health:snapshot.health,moisture:snapshot.moisture,yieldKg:snapshot.yieldKg,growthStage:snapshot.growthStage,soilPh:snapshot.soilPh,tempC:snapshot.tempC,notes:snapshot.notes,history,lastReading:iso});
+        }
+        const score=farmScore(plants);const previous=(selectedFarm.dailyScores||[]).filter(x=>typeof x==="object"&&x.date!==today);const dailyScores=[...previous,{date:today,score,health:Math.round(mean(plants,"health")),moisture:Math.round(mean(plants,"moisture")),plantCount:plants.length}].slice(-30);
+        await updateDoc(doc(db,"farms",selectedFarm.id),{score,dailyScores,updatedAt:iso});
+        selectedFarm.score=score;selectedFarm.dailyScores=dailyScores;selectedFarm.updatedAt=iso;renderEditor();toast("Plant readings saved. Farm vitality is now "+score+".");
+      }catch(e){console.error(e);toast("Save failed. Check Firestore rules and your admin role.");btn.disabled=false;btn.textContent="Save readings & update score";}
+    }
+    async function loadSelectedFarm(id){
+      selectedFarm=window.__farms?.find(f=>f.id===id)||null;plants=[];
+      if(plantsUnsub){plantsUnsub();plantsUnsub=null}
+      if(!selectedFarm){renderEditor();return}
+      if(farmUnsub){farmUnsub();farmUnsub=null}
+      farmUnsub=onSnapshot(doc(db,"farms",id),snap=>{if(snap.exists()){selectedFarm={id:snap.id,...snap.data()};renderEditor()}});
+      plantsUnsub=onSnapshot(collection(db,"farms",id,"plants"),snap=>{plants=snap.docs.map(d=>({id:d.id,...d.data()}));renderEditor()});
+    }
+    async function loadFarms(){
+      try{
+        const q=query(collection(db,"farms"),where("isPublic","==",true));const snap=await getDocs(q);window.__farms=snap.docs.map(d=>({id:d.id,...d.data()}));
+        const select=document.getElementById("farmSelect");select.innerHTML=window.__farms.map(f=>'<option value="'+esc(f.id)+'">'+esc(f.name)+' · '+esc(f.location||"")+'</option>').join("")||'<option value="">No public farms found</option>';
+        if(window.__farms.length)loadSelectedFarm(window.__farms[0].id);else{selectedFarm=null;renderEditor()}
+      }catch(e){console.error(e);document.getElementById("farmEditor").innerHTML='<div class="empty">Could not load farms. Check Firestore rules and confirm the project is connected.</div>'}
+    }
+    function authError(e){return ({"auth/invalid-credential":"Email or password is incorrect.","auth/invalid-email":"Enter a valid email address.","auth/network-request-failed":"Network connection failed."})[e.code]||e.message||"Sign in failed."}
+    async function verifyAdmin(user){
+      document.getElementById("loginMessage").textContent="";
+      try{
+        const snap=await getDoc(doc(db,"users",user.uid));
+        if(!snap.exists()||snap.data().role!=="admin"){await signOut(auth);document.getElementById("loginMessage").textContent="This account is not an admin. Add role: \"admin\" to its users/"+user.uid+" Firestore document.";return}
+        document.getElementById("authLayout").classList.add("hidden");document.getElementById("adminPanel").classList.remove("hidden");
+        document.getElementById("previewPanel").classList.add("hidden");document.getElementById("connectionText").textContent="ADMIN VERIFIED · LIVE DATA";
+        document.getElementById("previewLabel").textContent="ADMIN VERIFIED";document.getElementById("adminIdentity").textContent="Signed in as "+(user.email||"admin");
+        await loadFarms();
+      }catch(e){await signOut(auth);document.getElementById("loginMessage").textContent="Admin check failed: "+(e.message||"verify Firestore rules.");}
+    }
+    function renderPreview(){
+      const id=document.getElementById("previewFarmSelect").value;const f=previewFarms[id];document.getElementById("previewScore").textContent=farmScore(f.plants);
+      document.getElementById("previewTable").innerHTML='<div class="stat-grid"><div class="stat"><small>INDIVIDUAL PLANTS</small><strong>'+f.plants.length+'</strong></div><div class="stat"><small>AVERAGE HEALTH</small><strong>'+Math.round(mean(f.plants,"health"))+'%</strong></div><div class="stat"><small>AVERAGE MOISTURE</small><strong>'+Math.round(mean(f.plants,"moisture"))+'%</strong></div><div class="stat"><small>EXPECTED TOTAL YIELD</small><strong>'+f.plants.reduce((s,p)=>s+n(p.yieldKg),0).toFixed(1)+' kg</strong></div></div>'+tableMarkup(f.plants,false)+showHistory(f);
+    }
+    document.getElementById("loginForm").addEventListener("submit",async e=>{
+      e.preventDefault();const msg=document.getElementById("loginMessage");
+      if(!READY){msg.textContent="Add your Firebase web API key to enable admin sign-in. Sample data can be previewed below.";return}
+      const fd=new FormData(e.target);try{await signInWithEmailAndPassword(auth,String(fd.get("email")).trim().toLowerCase(),String(fd.get("password")))}catch(err){msg.textContent=authError(err)}
+    });
+    document.getElementById("previewButton").addEventListener("click",()=>{
+      document.getElementById("previewPanel").classList.remove("hidden");document.getElementById("previewPanel").scrollIntoView({behavior:"smooth",block:"center"});renderPreview();
+    });
+    document.getElementById("previewFarmSelect").addEventListener("change",renderPreview);
+    document.getElementById("farmSelect").addEventListener("change",e=>loadSelectedFarm(e.target.value));
+    document.getElementById("reloadButton").addEventListener("click",loadFarms);
+    document.getElementById("signOutButton").addEventListener("click",()=>signOut(auth));
+    if(READY){
+      try{
+        app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);
+        document.getElementById("connectionText").textContent="FIREBASE CONFIGURED";
+        document.getElementById("previewLabel").textContent="FIREBASE CONNECTED";
+        onAuthStateChanged(auth,user=>{if(user)verifyAdmin(user);else{document.getElementById("authLayout").classList.remove("hidden");document.getElementById("adminPanel").classList.add("hidden");document.getElementById("connectionText").textContent="AUTHENTICATION REQUIRED"}});
+      }catch(e){console.error(e);document.getElementById("loginMessage").textContent="Firebase configuration could not be loaded."}
+    }else{
+      document.getElementById("connectionText").textContent="FIREBASE API KEY NEEDED";
+      document.getElementById("previewLabel").textContent="PREVIEW AVAILABLE";
+    }
+    renderPreview();
+  </script>
+</body>
+</html>
