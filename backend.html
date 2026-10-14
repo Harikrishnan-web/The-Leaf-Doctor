@@ -12,7 +12,7 @@
 <body>
 <header class="shell top"><a class="brand" href="./index.html">✿ The Leaf Doctor / Backend</a><a href="./index.html">← Open farm view</a></header>
 <main class="shell main">
-<div class="heading"><div><div class="eyebrow">Plant readings & farm health</div><h1>Backend plant editor</h1><p>Update plant data and recalculate the farm vitality score.</p></div><span class="pill" id="connectState">Local data editor</span></div>
+<div class="heading"><div><div class="eyebrow">Plant readings & farm health</div><h1>Backend plant editor</h1><p>Update plant data and recalculate the farm vitality score.</p></div><span class="pill" id="connectState">Firebase setup</span></div>
 <section id="loginPanel" class="card login">
 <h2>Backend sign in</h2><p>Use the backend account to manage farm and plant readings.</p>
 <form id="loginForm">
@@ -26,13 +26,22 @@
 <section id="adminPanel" class="card panel hidden">
 <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap"><div><h2>Farm and plant readings</h2><p id="identity">Signed in to the local editor</p></div><button id="signOutBtn" class="btn outline">Sign out</button></div>
 <div class="toolbar"><div class="field"><label for="farmSelect">Farm</label><select id="farmSelect"></select></div><div class="actions"><button id="addPlantBtn" class="btn soft">＋ Add plant</button><button id="refreshBtn" class="btn outline">Reload saved data</button></div></div>
-<div class="note">Edit health, moisture, growth stage, yield, soil pH, temperature, or notes for each plant, then save. For farmer accounts and cloud farms, sign in through the front page; these readings are saved only in this browser.</div>
+<div class="note" id="connectionNote">Edit readings and save them to Firebase when configured.</div>
 <div id="editor"></div>
 </section>
 </main>
 <footer class="shell footer"><span>The Leaf Doctor · Plant data editor</span><span>Farm vitality is an illustrative indicator; verify crop targets before operational or investment use.</span></footer>
-<script>
+<script type="module">
 "use strict";
+const firebaseConfig = {
+  apiKey: "AIzaSyAKKwI39zymX1kX4FCVwl8ob4EQUrtlxuk",
+  authDomain: "the-leaf-doctor.firebaseapp.com",
+  projectId: "the-leaf-doctor",
+  storageBucket: "the-leaf-doctor.firebasestorage.app",
+  messagingSenderId: "851192928038",
+  appId: "1:851192928038:web:46d3ff03502e4b628d53e7",
+  measurementId: "G-PK42NJXLPQ"
+};
 const BACKEND_USERNAME="Hari";
 const BACKEND_PASSWORD="ugbbaaph4r";
 const STORAGE_KEY="leafDoctorDemoFarms";
@@ -51,38 +60,76 @@ const sampleFarms=[
 {id:"a1",species:"apple",label:"Apple tree",health:89,moisture:57,yieldKg:18,growthStage:"Fruiting",soilPh:6.3,tempC:22,notes:"Fruit setting"},
 {id:"c1",species:"corn",label:"Sweet corn",health:83,moisture:60,yieldKg:1.4,growthStage:"Tasseling",soilPh:6.1,tempC:25,notes:""}]}
 ];
-let farms=[],selectedFarm=null,dirty=false;
-function cloneSample(){return JSON.parse(JSON.stringify(sampleFarms))}
-function readFarms(){try{const stored=JSON.parse(localStorage.getItem(STORAGE_KEY));return Array.isArray(stored)?stored:cloneSample()}catch{return cloneSample()}}
-function storeFarms(){localStorage.setItem(STORAGE_KEY,JSON.stringify(farms))}
+let farms=[],selectedFarm=null,dirty=false,fb=null,db=null,cloudMode=false;
+let memoryFarms=JSON.parse(JSON.stringify(sampleFarms));
+function readLocal(){try{const stored=JSON.parse(localStorage.getItem(STORAGE_KEY));if(Array.isArray(stored)){memoryFarms=stored;return stored}}catch(e){console.warn("Local storage unavailable",e)}return JSON.parse(JSON.stringify(memoryFarms))}
+function writeLocal(){memoryFarms=JSON.parse(JSON.stringify(farms));try{localStorage.setItem(STORAGE_KEY,JSON.stringify(farms));return true}catch(e){console.warn("Could not persist local data",e);return false}}
 function moistureFit(p){const targets={tomato:60,apple:58,banana:70,corn:60,rice:80,lettuce:65,wheat:50,potato:65,pepper:60,grape:55,mango:60,cucumber:65};const target=targets[String(p.species||"").toLowerCase()]||58;return Math.max(0,100-Math.abs(num(p.moisture)-target)*2.1)}
 function vitality(f){const a=f.plants||[];return a.length?Math.round(a.reduce((sum,p)=>sum+num(p.health)*.7+moistureFit(p)*.3,0)/a.length):0}
 function avg(a,key){return a.length?Math.round(a.reduce((sum,p)=>sum+num(p[key]),0)/a.length):0}
 function icon(p){return speciesIcons[String(p.species||"").toLowerCase()]||"🌱"}
 function field(p,key,value,type,extra){const common=' data-plant="'+esc(p.id)+'" data-key="'+key+'"';if(type==="select"){const choices=["Seedling","Growing","Leafing","Flowering","Fruiting","Tasseling","Tillering","Harvest ready","Dormant"];return '<select'+common+'>'+choices.map(x=>'<option value="'+esc(x)+'" '+(x===value?"selected":"")+'>'+esc(x)+'</option>').join("")+'</select>'}return '<input class="'+(extra||"")+'" type="'+(type==="text"?"text":"number")+'" value="'+esc(value)+'"'+common+' '+(type==="text"?'maxlength="120"':'step="0.1"')+'>'}
-function renderFarmOptions(){const select=$("#farmSelect");select.innerHTML=farms.map(f=>'<option value="'+esc(f.id)+'">'+esc(f.name)+'</option>').join("")||'<option value="">No farms saved</option>';if(selectedFarm&&farms.some(f=>f.id===selectedFarm))select.value=selectedFarm;else selectedFarm=farms[0]&&farms[0].id||null;if(selectedFarm)select.value=selectedFarm}
+function renderFarmOptions(){const select=$("#farmSelect");select.innerHTML=farms.map(f=>'<option value="'+esc(f.id)+'">'+esc(f.name)+'</option>').join("")||'<option value="">No farms loaded</option>';if(selectedFarm&&farms.some(f=>f.id===selectedFarm))select.value=selectedFarm;else selectedFarm=farms[0]&&farms[0].id||null;if(selectedFarm)select.value=selectedFarm}
 function renderEditor(){
  const farm=farms.find(f=>f.id===selectedFarm);
- if(!farm){$("#editor").innerHTML='<div class="empty">No farm data is saved yet. Open the front page, create a farm in local demo mode, or add sample farms to begin.</div>';return}
+ if(!farm){$("#editor").innerHTML='<div class="empty">'+(cloudMode?"No farms were returned by Firebase. Check Firestore data access.":"No farm data is saved yet. Open the front page and create a farm in local demo mode.")+'</div>';return}
  const plants=farm.plants||[],health=avg(plants,"health"),moisture=avg(plants,"moisture"),yieldKg=plants.reduce((s,p)=>s+num(p.yieldKg),0);
  const rows=plants.map((p,i)=>'<tr><td>'+icon(p)+' <b>'+esc(p.label||speciesNames[p.species]||p.species||"Plant")+' '+String(i+1).padStart(2,"0")+'</b><br><small style="color:#819084">'+esc(p.species||"plant")+'</small></td><td>'+field(p,"health",p.health,"number")+'</td><td>'+field(p,"moisture",p.moisture,"number")+'</td><td>'+field(p,"growthStage",p.growthStage||"Growing","select")+'</td><td>'+field(p,"yieldKg",num(p.yieldKg).toFixed(1),"number")+'</td><td>'+field(p,"soilPh",num(p.soilPh,6.5).toFixed(1),"number")+'</td><td>'+field(p,"tempC",num(p.tempC,24).toFixed(1),"number")+'</td><td>'+field(p,"notes",p.notes||"","text","notes")+'</td><td><button class="btn danger removePlant" data-id="'+esc(p.id)+'" title="Remove plant">Remove</button></td></tr>').join("");
- $("#editor").innerHTML='<div class="stats"><div class="stat"><small>INDIVIDUAL PLANTS</small><strong>'+plants.length+'</strong></div><div class="stat"><small>AVERAGE HEALTH</small><strong>'+health+'%</strong></div><div class="stat"><small>AVERAGE MOISTURE</small><strong>'+moisture+'%</strong></div><div class="stat"><small>FARM VITALITY · TOTAL YIELD '+yieldKg.toFixed(1)+' KG</small><strong>'+vitality(farm)+' /100</strong></div></div>'+(plants.length?'<div class="tableWrap"><table><thead><tr><th>Plant</th><th>Health %</th><th>Moisture %</th><th>Growth stage</th><th>Yield kg</th><th>Soil pH</th><th>Temp °C</th><th>Notes</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>':'<div class="empty">This farm has no plants yet. Choose Add plant to create one.</div>')+'<div class="saveBar"><span id="dirtyMsg">'+(dirty?"Unsaved edits.":"Changes save to this browser.")+'</span><button id="saveBtn" class="btn primary">Save readings & update score</button></div>';
+ $("#editor").innerHTML='<div class="stats"><div class="stat"><small>INDIVIDUAL PLANTS</small><strong>'+plants.length+'</strong></div><div class="stat"><small>AVERAGE HEALTH</small><strong>'+health+'%</strong></div><div class="stat"><small>AVERAGE MOISTURE</small><strong>'+moisture+'%</strong></div><div class="stat"><small>FARM VITALITY · TOTAL YIELD '+yieldKg.toFixed(1)+' KG</small><strong>'+vitality(farm)+' /100</strong></div></div>'+(plants.length?'<div class="tableWrap"><table><thead><tr><th>Plant</th><th>Health %</th><th>Moisture %</th><th>Growth stage</th><th>Yield kg</th><th>Soil pH</th><th>Temp °C</th><th>Notes</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>':'<div class="empty">This farm has no plants yet. Choose Add plant to create one.</div>')+'<div class="saveBar"><span id="dirtyMsg">'+(dirty?"Unsaved edits.":"Ready.")+'</span><button id="saveBtn" class="btn primary">Save readings & update score</button></div>';
  document.querySelectorAll("#editor [data-key]").forEach(el=>{el.addEventListener("input",changeValue);el.addEventListener("change",changeValue)});
  document.querySelectorAll(".removePlant").forEach(el=>el.addEventListener("click",()=>removePlant(el.dataset.id)));
  $("#saveBtn").addEventListener("click",saveReadings)
 }
 function render(){renderFarmOptions();renderEditor()}
-function changeValue(e){const farm=farms.find(f=>f.id===selectedFarm);const plant=farm&&farm.plants.find(p=>p.id===e.target.dataset.plant);if(!plant)return;const key=e.target.dataset.key;plant[key]=["health","moisture","yieldKg","soilPh","tempC"].includes(key)?num(e.target.value):e.target.value;dirty=true;$("#dirtyMsg").textContent="Unsaved edits. Save to update farm data and vitality."}
-function saveReadings(){const farm=farms.find(f=>f.id===selectedFarm);if(!farm)return;const plants=farm.plants||[];for(const p of plants){p.health=Math.min(100,Math.max(0,num(p.health)));p.moisture=Math.min(100,Math.max(0,num(p.moisture)));p.yieldKg=Math.max(0,num(p.yieldKg));p.soilPh=Math.min(14,Math.max(0,num(p.soilPh,6.5)));p.tempC=num(p.tempC,24);p.lastReading=new Date().toISOString()}farm.score=vitality(farm);farm.updatedAt=new Date().toISOString();const today=new Date().toISOString().slice(0,10);farm.dailyScores=farm.dailyScores||[];farm.dailyScores=farm.dailyScores.filter(x=>!(x&&typeof x==="object"&&x.date===today));farm.dailyScores.push({date:today,score:farm.score,health:avg(plants,"health"),moisture:avg(plants,"moisture"),plantCount:plants.length});farm.dailyScores=farm.dailyScores.slice(-30);try{storeFarms();dirty=false;render();$("#dirtyMsg").textContent="Saved in this browser · farm vitality "+farm.score+" / 100."}catch(e){$("#dirtyMsg").textContent="Could not save: "+e.message}}
-function addPlant(){const farm=farms.find(f=>f.id===selectedFarm);if(!farm)return;const label=prompt("Plant name","New plant");if(label===null)return;const species=prompt("Plant type (tomato, apple, lettuce, etc.)","plant");if(species===null)return;farm.plants=farm.plants||[];farm.plants.push({id:"plant-"+Date.now(),species:species.toLowerCase().trim()||"plant",label:label.trim()||"New plant",health:80,moisture:55,yieldKg:0,growthStage:"Seedling",soilPh:6.5,tempC:24,notes:""});dirty=true;render()}
-function removePlant(id){const farm=farms.find(f=>f.id===selectedFarm);if(!farm)return;if(!confirm("Remove this plant from "+farm.name+"?"))return;farm.plants=farm.plants.filter(p=>p.id!==id);dirty=true;render()}
-function showEditor(){farms=readFarms();if(!localStorage.getItem(STORAGE_KEY))try{storeFarms()}catch{}selectedFarm=farms[0]&&farms[0].id||null;dirty=false;$("#loginPanel").classList.add("hidden");$("#adminPanel").classList.remove("hidden");$("#connectState").textContent="Backend unlocked";$("#identity").textContent="Signed in as Hari · local browser data";render()}
-$("#loginForm").addEventListener("submit",e=>{e.preventDefault();const data=new FormData(e.target);const username=String(data.get("username")).trim();const password=String(data.get("password"));if(username===BACKEND_USERNAME&&password===BACKEND_PASSWORD){$("#loginMsg").textContent="";showEditor()}else $("#loginMsg").textContent="Username or password is incorrect."});
+function changeValue(e){const farm=farms.find(f=>f.id===selectedFarm);const plant=farm&&farm.plants.find(p=>p.id===e.target.dataset.plant);if(!plant)return;const key=e.target.dataset.key;plant[key]=["health","moisture","yieldKg","soilPh","tempC"].includes(key)?num(e.target.value):e.target.value;dirty=true;$("#dirtyMsg").textContent="Unsaved edits. Save to update readings."}
+async function connectFirebase(){
+ if(firebaseConfig.apiKey.trim().length<10)throw new Error("Firebase API key is blank. Paste the web API key into firebaseConfig.apiKey to connect cloud data.");
+ if(location.protocol==="file:")throw new Error("Firebase needs this page opened through HTTPS or localhost. Opening a file directly only allows local demo mode.");
+ const [appSdk,storeSdk]=await Promise.all([import("https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js"),import("https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js")]);
+ const app=appSdk.getApps().length?appSdk.getApp():appSdk.initializeApp(firebaseConfig);
+ db=storeSdk.getFirestore(app);fb=storeSdk;cloudMode=true;
+ import("https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js").then(m=>m.isSupported().then(ok=>{if(ok)m.getAnalytics(app)})).catch(()=>{});
+}
+async function loadCloudFarms(){
+ const snap=await fb.getDocs(fb.collection(db,"farms"));
+ return await Promise.all(snap.docs.map(async d=>{const data=d.data();let plants=Array.isArray(data.plants)?data.plants:[];try{const ps=await fb.getDocs(fb.collection(db,"farms",d.id,"plants"));if(!ps.empty)plants=ps.docs.map(p=>({id:p.id,...p.data(),_cloud:true}))}catch(e){console.warn("Could not read plants for",d.id,e)}return{id:d.id,...data,plants,_cloud:true}}))
+}
+async function openEditor(){
+ $("#loginPanel").classList.add("hidden");$("#adminPanel").classList.remove("hidden");
+ try{await connectFirebase();farms=await loadCloudFarms();$("#connectState").textContent="Firebase connected";$("#identity").textContent="Signed in as Hari · Firebase data";$("#connectionNote").textContent="Firebase is connected. Save writes farm and plant data to Firestore; Firestore security rules still control access."}
+ catch(e){cloudMode=false;db=null;fb=null;farms=readLocal();const apiMissing=e.message.indexOf("API key is blank")>=0;const fileMode=e.message.indexOf("HTTPS or localhost")>=0;$("#connectState").textContent=apiMissing?"Firebase key needed":fileMode?"Open via localhost":"Firebase access issue";$("#identity").textContent="Signed in as Hari · "+(apiMissing||fileMode?"local demo data":"local fallback");$("#connectionNote").textContent=(apiMissing||fileMode?"Local demo data is active. "+e.message:"Firebase could not load data: "+e.message+" Local demo data is shown.");}
+ selectedFarm=farms[0]&&farms[0].id||null;dirty=false;render()
+}
+function payload(p){const o={};["species","label","designType","health","moisture","yieldKg","growthStage","soilPh","tempC","notes","lastReading"].forEach(k=>{if(p[k]!==undefined)o[k]=p[k]});return o}
+async function saveReadings(){
+ const farm=farms.find(f=>f.id===selectedFarm);if(!farm)return;const btn=$("#saveBtn");btn.disabled=true;btn.textContent="Saving…";
+ const plants=farm.plants||[],now=new Date().toISOString(),today=now.slice(0,10);
+ for(const p of plants){p.health=Math.min(100,Math.max(0,num(p.health)));p.moisture=Math.min(100,Math.max(0,num(p.moisture)));p.yieldKg=Math.max(0,num(p.yieldKg));p.soilPh=Math.min(14,Math.max(0,num(p.soilPh,6.5)));p.tempC=num(p.tempC,24);p.lastReading=now}
+ farm.score=vitality(farm);farm.updatedAt=now;farm.dailyScores=farm.dailyScores||[];farm.dailyScores=farm.dailyScores.filter(x=>!(x&&typeof x==="object"&&x.date===today));farm.dailyScores.push({date:today,score:farm.score,health:avg(plants,"health"),moisture:avg(plants,"moisture"),plantCount:plants.length});farm.dailyScores=farm.dailyScores.slice(-30);
+ try{
+  if(cloudMode){for(const p of plants){if(p._cloud)await fb.updateDoc(fb.doc(db,"farms",farm.id,"plants",p.id),payload(p));else{const ref=await fb.addDoc(fb.collection(db,"farms",farm.id,"plants"),payload(p));p.id=ref.id;p._cloud=true}}await fb.updateDoc(fb.doc(db,"farms",farm.id),{score:farm.score,dailyScores:farm.dailyScores,updatedAt:now})}
+  else if(!writeLocal())throw new Error("Browser storage is blocked. Use a regular browser window and serve both files from localhost.");
+  dirty=false;render();$("#dirtyMsg").textContent=(cloudMode?"Saved to Firebase":"Saved in this browser")+" · farm vitality "+farm.score+" / 100."
+ }catch(e){$("#dirtyMsg").textContent="Save failed: "+e.message}
+ finally{const b=$("#saveBtn");if(b){b.disabled=false;b.textContent="Save readings & update score"}}
+}
+async function addPlant(){
+ const farm=farms.find(f=>f.id===selectedFarm);if(!farm)return;const label=prompt("Plant name","New plant");if(label===null)return;const species=prompt("Plant type (tomato, apple, lettuce, etc.)","plant");if(species===null)return;
+ const p={id:"plant-"+Date.now(),species:species.toLowerCase().trim()||"plant",label:label.trim()||"New plant",health:80,moisture:55,yieldKg:0,growthStage:"Seedling",soilPh:6.5,tempC:24,notes:""};
+ try{if(cloudMode){const ref=await fb.addDoc(fb.collection(db,"farms",farm.id,"plants"),payload(p));p.id=ref.id;p._cloud=true}farm.plants=farm.plants||[];farm.plants.push(p);dirty=true;render()}catch(e){$("#connectionNote").textContent="Could not add plant: "+e.message}
+}
+async function removePlant(id){
+ const farm=farms.find(f=>f.id===selectedFarm);if(!farm||!confirm("Remove this plant from "+farm.name+"?"))return;
+ const p=farm.plants.find(x=>x.id===id);
+ try{if(cloudMode&&p&&p._cloud)await fb.deleteDoc(fb.doc(db,"farms",farm.id,"plants",p.id));farm.plants=farm.plants.filter(x=>x.id!==id);dirty=true;render()}catch(e){$("#connectionNote").textContent="Could not remove plant: "+e.message}
+}
+$("#loginForm").addEventListener("submit",async e=>{e.preventDefault();const data=new FormData(e.target);const username=String(data.get("username")).trim();const password=String(data.get("password"));if(username===BACKEND_USERNAME&&password===BACKEND_PASSWORD){$("#loginMsg").textContent="";await openEditor()}else $("#loginMsg").textContent="Username or password is incorrect."});
 $("#farmSelect").addEventListener("change",e=>{selectedFarm=e.target.value;dirty=false;renderEditor()});
 $("#addPlantBtn").addEventListener("click",addPlant);
-$("#refreshBtn").addEventListener("click",()=>{farms=readFarms();dirty=false;render()});
-$("#signOutBtn").addEventListener("click",()=>{$("#adminPanel").classList.add("hidden");$("#loginPanel").classList.remove("hidden");$("#loginForm").reset();$("#connectState").textContent="Local data editor";$("#loginMsg").textContent=""});
+$("#refreshBtn").addEventListener("click",async()=>{if(cloudMode){try{farms=await loadCloudFarms();render()}catch(e){$("#connectionNote").textContent="Could not reload Firebase data: "+e.message}}else{farms=readLocal();render()}});
+$("#signOutBtn").addEventListener("click",()=>{$("#adminPanel").classList.add("hidden");$("#loginPanel").classList.remove("hidden");$("#loginForm").reset();$("#connectState").textContent="Backend sign-in";$("#loginMsg").textContent="";cloudMode=false;db=null;fb=null});
 </script>
 </body>
 </html>
+
 
