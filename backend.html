@@ -4,135 +4,85 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#123d2d">
-<title>Admin control room — The Leaf Doctor</title>
+<title>Backend plant editor — The Leaf Doctor</title>
 <style>
-:root{font-family:Inter,ui-sans-serif,system-ui,"Segoe UI",sans-serif;color:#19382b;background:#f6faf4;--forest:#123d2d;--leaf:#4d965e;--line:#e1ebe0;--muted:#77867b}*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button{cursor:pointer}.shell{width:min(1160px,calc(100% - 36px));margin:auto}.top{height:72px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}.brand{font-weight:850;font-size:18px;color:var(--forest);text-decoration:none}.top a:last-child{color:#5f765f;font-size:12px;text-decoration:none}.main{padding:34px 0 55px}.heading{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:850;color:#558b5f}.heading h1{font-size:34px;letter-spacing:-.055em;margin:7px 0}.heading p{margin:0;color:var(--muted);font-size:12px}.pill{background:#e9f4e6;color:#527c54;padding:8px 11px;border-radius:99px;font-size:10px;font-weight:850}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 12px 34px #214b3010}.authGrid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.card h2{margin:0;font-size:18px;letter-spacing:-.03em}.card p{color:var(--muted);font-size:11px;line-height:1.55}.field{display:grid;gap:6px;margin:11px 0}.field label{font-size:10px;font-weight:800;color:#5d7062}.field input,.field select{width:100%;padding:11px;border:1px solid #dce7da;border-radius:10px}.btn{border:0;border-radius:11px;padding:10px 14px;font-size:11px;font-weight:850}.primary{background:var(--forest);color:white}.outline{background:white;color:var(--forest);border:1px solid #dbe7d9}.soft{background:#e8f3e5;color:#2d6840}.note{padding:11px 12px;border-radius:11px;background:#f3f8f0;color:#748277;font-size:10px;line-height:1.55;margin-top:13px}.setup{background:linear-gradient(145deg,#17442f,#245d3c);color:white}.setup p{color:#d5e6d3}.setup ol{padding-left:19px;color:#e8f1e5;font-size:10px;line-height:1.8}.setup code{background:#ffffff15;padding:2px 4px;border-radius:4px}.msg{min-height:17px;color:#aa4c42;font-size:10px}.banner{padding:10px 12px;background:#fff3dc;color:#775d22;border-radius:10px;font-size:10px;margin:12px 0}.panel{margin-top:16px}.hidden{display:none!important}.toolbar{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin:14px 0}.toolbar .field{margin:0;min-width:220px;flex:1}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:14px 0}.stat{background:#f6faf4;border:1px solid #e7eee4;border-radius:12px;padding:12px}.stat small{font-size:9px;color:#809084}.stat strong{display:block;font-size:17px;margin-top:4px}.tableWrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{border-collapse:collapse;width:100%;min-width:780px}th{text-align:left;background:#f4f8f2;color:#78877b;text-transform:uppercase;font-size:9px;letter-spacing:.08em;padding:11px}td{padding:9px 11px;border-top:1px solid #edf1eb;font-size:11px}td input,td select{width:80px;padding:7px;border:1px solid #dce7da;border-radius:7px;font-size:10px}.saveBar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:13px;color:#78867b;font-size:10px}.history{display:flex;gap:6px;align-items:end;height:100px;padding:10px;border-bottom:1px solid var(--line)}.bar{flex:1;min-width:12px;max-width:38px;background:linear-gradient(#86c77a,#3e8951);border-radius:6px 6px 2px 2px;position:relative}.bar span{position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:8px;color:#638068}.footer{padding:22px 0 34px;color:#859187;font-size:10px;display:flex;justify-content:space-between;gap:12px}
-@media(max-width:760px){.authGrid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.heading{align-items:start;flex-direction:column}.footer{flex-direction:column}}
+:root{font-family:Inter,ui-sans-serif,system-ui,"Segoe UI",sans-serif;color:#19382b;background:#f6faf4;--forest:#123d2d;--leaf:#4d965e;--line:#e1ebe0;--muted:#77867b}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}.shell{width:min(1160px,calc(100% - 36px));margin:auto}.top{height:72px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}.brand{font-weight:850;font-size:18px;color:var(--forest);text-decoration:none}.top a:last-child{color:#5f765f;font-size:12px;text-decoration:none}.main{padding:34px 0 55px}.heading{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:850;color:#558b5f}.heading h1{font-size:34px;letter-spacing:-.055em;margin:7px 0}.heading p{margin:0;color:var(--muted);font-size:12px}.pill{background:#e9f4e6;color:#527c54;padding:8px 11px;border-radius:99px;font-size:10px;font-weight:850}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 12px 34px #214b3010}.login{max-width:520px;margin:26px auto}.card h2{margin:0;font-size:18px;letter-spacing:-.03em}.card p{color:var(--muted);font-size:11px;line-height:1.55}.field{display:grid;gap:6px;margin:13px 0}.field label{font-size:10px;font-weight:800;color:#5d7062}.field input,.field select,.field textarea{width:100%;padding:11px;border:1px solid #dce7da;border-radius:10px;background:white}.btn{border:0;border-radius:11px;padding:10px 14px;font-size:11px;font-weight:850}.primary{background:var(--forest);color:white}.outline{background:white;color:var(--forest);border:1px solid #dbe7d9}.soft{background:#e8f3e5;color:#2d6840}.note{padding:11px 12px;border-radius:11px;background:#f3f8f0;color:#748277;font-size:10px;line-height:1.55;margin-top:13px}.warning{background:#fff3dc;color:#775d22}.msg{min-height:18px;color:#aa4c42;font-size:10px}.panel{margin-top:16px}.hidden{display:none!important}.toolbar{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin:14px 0}.toolbar .field{margin:0;min-width:220px;flex:1}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:14px 0}.stat{background:#f6faf4;border:1px solid #e7eee4;border-radius:12px;padding:12px}.stat small{font-size:9px;color:#809084}.stat strong{display:block;font-size:17px;margin-top:4px}.tableWrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{border-collapse:collapse;width:100%;min-width:910px}th{text-align:left;background:#f4f8f2;color:#78877b;text-transform:uppercase;font-size:9px;letter-spacing:.08em;padding:11px}td{padding:8px 9px;border-top:1px solid #edf1eb;font-size:11px}td input,td select{width:82px;padding:7px;border:1px solid #dce7da;border-radius:7px;font-size:10px}td input.wide{width:130px}td input.notes{width:155px}.saveBar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:13px;color:#78867b;font-size:10px}.footer{padding:22px 0 34px;color:#859187;font-size:10px;display:flex;justify-content:space-between;gap:12px}.actions{display:flex;gap:8px;flex-wrap:wrap}.danger{color:#9b423b;background:#fff0ed;border:1px solid #f4d8d3}.empty{padding:24px;text-align:center;color:var(--muted);font-size:12px}@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.heading{align-items:start;flex-direction:column}.footer{flex-direction:column}.saveBar{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
 <body>
-<header class="shell top"><a class="brand" href="./index.html">✿ The Leaf Doctor / Admin</a><a href="./index.html">← Farm view</a></header>
+<header class="shell top"><a class="brand" href="./index.html">✿ The Leaf Doctor / Backend</a><a href="./index.html">← Open farm view</a></header>
 <main class="shell main">
-<div class="heading"><div><div class="eyebrow">Sensor readings & farm health</div><h1>Admin control room</h1><p>Update individual plant readings. Each save recalculates vitality and stores a daily score.</p></div><span class="pill" id="connectState">Checking Firebase setup</span></div>
-<section id="authPanel" class="authGrid">
-<div class="card">
-<h2>Admin sign in</h2><p>Sign in with the admin email registered in Firebase Authentication.</p>
+<div class="heading"><div><div class="eyebrow">Plant readings & farm health</div><h1>Backend plant editor</h1><p>Update plant data and recalculate the farm vitality score.</p></div><span class="pill" id="connectState">Local data editor</span></div>
+<section id="loginPanel" class="card login">
+<h2>Backend sign in</h2><p>Use the backend account to manage farm and plant readings.</p>
 <form id="loginForm">
-<div class="field"><label>Admin email</label><input name="email" type="email" autocomplete="username" required placeholder="admin@example.com"></div>
-<div class="field"><label>Password</label><input name="password" type="password" autocomplete="current-password" required placeholder="Firebase password"></div>
-<div id="loginMsg" class="msg"></div>
-<button class="btn primary">Sign in</button> <button id="previewBtn" type="button" class="btn soft">Preview sample readings</button>
+<div class="field"><label for="username">Username</label><input id="username" name="username" autocomplete="username" required></div>
+<div class="field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
+<div id="loginMsg" class="msg" aria-live="polite"></div>
+<button class="btn primary">Sign in</button>
 </form>
-<div class="note">This page does not include a built-in username or password. Firebase Authentication and Firestore rules protect admin access.</div>
-</div>
-<div class="card setup">
-<h2>Connect Firebase once</h2>
-<p>Replace the API-key placeholder in this file and in <code>index.html</code>. Then:</p>
-<ol><li>Enable Email/Password in Firebase Authentication and create an admin email account.</li><li>In Firestore, create <code>users/{adminUid}</code> with <code>role: "admin"</code>.</li><li>Create the database, publish the rules below, and host both pages on Firebase Hosting or another HTTPS host.</li></ol>
-<details><summary>Starting Firestore security rules</summary><pre style="white-space:pre-wrap;font-size:9px;line-height:1.5;background:#0d2d1e;padding:12px;border-radius:9px">rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    function signedIn() { return request.auth != null; }
-    function admin() {
-      return signedIn()
-        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
-        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
-    }
-    function owner(farmId) {
-      return signedIn()
-        && get(/databases/$(database)/documents/farms/$(farmId)).data.ownerUid == request.auth.uid;
-    }
-    function editor(farmId) {
-      return signedIn()
-        && ('editorEmails' in get(/databases/$(database)/documents/farms/$(farmId)).data)
-        && request.auth.token.email in get(/databases/$(database)/documents/farms/$(farmId)).data.editorEmails;
-    }
-    match /users/{uid} {
-      allow create: if signedIn() && request.auth.uid == uid
-        && request.resource.data.role == 'farmer';
-      allow read: if signedIn() && (request.auth.uid == uid || admin());
-    }
-    match /farms/{farmId} {
-      allow read: if resource.data.isPublic == true || owner(farmId) || editor(farmId) || admin();
-      allow create: if signedIn() && request.resource.data.ownerUid == request.auth.uid;
-      allow update, delete: if owner(farmId) || editor(farmId) || admin();
-      match /plants/{plantId} {
-        allow read: if get(/databases/$(database)/documents/farms/$(farmId)).data.isPublic == true || owner(farmId) || editor(farmId) || admin();
-        allow create, update, delete: if owner(farmId) || editor(farmId) || admin();
-      }
-    }
-  }
-}</pre></details>
-</div>
+<div class="note warning">This static HTML page checks the login in your browser. It is suitable for a prototype, but the password can be seen in the page source and does not secure a public website.</div>
 </section>
 <section id="adminPanel" class="card panel hidden">
-<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div><h2>Live plant readings</h2><p id="identity">Admin verified</p></div><button id="signOutBtn" class="btn outline">Sign out</button></div>
-<div class="toolbar"><div class="field"><label>Farm</label><select id="farmSelect"></select></div><button id="refreshBtn" class="btn outline">Refresh farms</button></div>
+<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap"><div><h2>Farm and plant readings</h2><p id="identity">Signed in to the local editor</p></div><button id="signOutBtn" class="btn outline">Sign out</button></div>
+<div class="toolbar"><div class="field"><label for="farmSelect">Farm</label><select id="farmSelect"></select></div><div class="actions"><button id="addPlantBtn" class="btn soft">＋ Add plant</button><button id="refreshBtn" class="btn outline">Reload saved data</button></div></div>
+<div class="note">Edit health, moisture, growth stage, yield, soil pH, temperature, or notes for each plant, then save. For farmer accounts and cloud farms, sign in through the front page; these readings are saved only in this browser.</div>
 <div id="editor"></div>
 </section>
-<section id="previewPanel" class="card panel hidden">
-<h2>Sample readings · preview only</h2><p>Preview is read-only. Sign in to save live readings.</p>
-<div class="toolbar"><div class="field"><label>Sample farm</label><select id="sampleSelect"><option value="meadow">Morning Meadow Farm</option><option value="orchard">Riverbend Orchard</option></select></div><span class="pill">Read-only preview</span></div>
-<div id="sampleContent"></div>
-</section>
 </main>
-<footer class="shell footer"><span>The Leaf Doctor · Admin console</span><span>Vitality is an illustrative indicator. Calibrate crop targets before operational or investment use.</span></footer>
-<script type="module">
-const firebaseConfig = {
-  apiKey: "AIzaSyAKKwI39zymX1kX4FCVwl8ob4EQUrtlxuk",
-  authDomain: "the-leaf-doctor.firebaseapp.com",
-  projectId: "the-leaf-doctor",
-  storageBucket: "the-leaf-doctor.firebasestorage.app",
-  messagingSenderId: "851192928038",
-  appId: "1:851192928038:web:46d3ff03502e4b628d53e7",
-  measurementId: "G-PK42NJXLPQ"
-};
-const configured = firebaseConfig.apiKey.trim().length > 10;
-const sample={
- meadow:{id:"demo-meadow",name:"Morning Meadow Farm",dailyScores:[84,86,85,89,87,90,91],plants:[
- {id:"t1",species:"tomato",label:"Tomato",health:94,moisture:58,yieldKg:4.8,growthStage:"Fruiting",soilPh:6.4,tempC:24,notes:"Flowering steadily"},
- {id:"t2",species:"tomato",label:"Tomato",health:88,moisture:52,yieldKg:4.3,growthStage:"Fruiting",soilPh:6.5,tempC:25,notes:"Healthy new leaves"},
- {id:"l1",species:"lettuce",label:"Lettuce",health:90,moisture:64,yieldKg:.7,growthStage:"Leafing",soilPh:6.6,tempC:21,notes:""},
- {id:"b1",species:"banana",label:"Banana",health:88,moisture:68,yieldKg:13,growthStage:"Growing",soilPh:6.2,tempC:27,notes:""}]},
- orchard:{id:"demo-orchard",name:"Riverbend Orchard",dailyScores:[82,83,84,85,86,87,89],plants:[
- {id:"a1",species:"apple",label:"Apple tree",health:89,moisture:57,yieldKg:18,growthStage:"Fruiting",soilPh:6.2,tempC:22,notes:""},
- {id:"c1",species:"corn",label:"Sweet corn",health:83,moisture:60,yieldKg:1.4,growthStage:"Tasseling",soilPh:6.1,tempC:26,notes:""}]}
-};
-let sdk=null,auth=null,db=null,user=null,farms=[],plants=[],farm=null,farmUnsub=null,plantsUnsub=null;
-const $=s=>document.querySelector(s),esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d,mean=(a,k)=>a.length?a.reduce((x,p)=>x+num(p[k]),0)/a.length:0;
-function moistureFit(p){const target=({tomato:60,apple:58,banana:70,corn:60,rice:80,lettuce:65,wheat:50,potato:65,pepper:60,grape:55,mango:60,cucumber:65})[String(p.species||"").toLowerCase()]||58;return Math.max(0,100-Math.abs(num(p.moisture)-target)*2.1)}
-function farmScore(a){return a.length?Math.round(a.reduce((x,p)=>x+num(p.health)*.7+moistureFit(p)*.3,0)/a.length):0}
-function cropName(s){return ({tomato:"Tomato",apple:"Apple tree",banana:"Banana",corn:"Sweet corn",lettuce:"Lettuce",rice:"Rice",wheat:"Wheat",potato:"Potato",pepper:"Bell pepper",grape:"Grape vine",mango:"Mango tree",cucumber:"Cucumber"})[String(s||"").toLowerCase()]||s||"Plant"}
-function cropIcon(s){return ({tomato:"🍅",apple:"🍎",banana:"🍌",corn:"🌽",lettuce:"🥬",rice:"🌾",wheat:"🌾",potato:"🥔",pepper:"🫑",grape:"🍇",mango:"🥭",cucumber:"🥒"})[String(s||"").toLowerCase()]||"🌱"}
-function stats(a){return {count:a.length,health:Math.round(mean(a,"health")),moisture:Math.round(mean(a,"moisture")),yield:a.reduce((x,p)=>x+num(p.yieldKg),0)}}
-function table(rows,editable){return '<div class="tableWrap"><table><thead><tr><th>Plant</th><th>Health %</th><th>Moisture %</th><th>Growth stage</th><th>Yield kg</th><th>Soil pH</th><th>Temp °C</th><th>Notes</th></tr></thead><tbody>'+rows.map((p,i)=>'<tr><td>'+cropIcon(p.species)+' <b>'+esc(p.label||cropName(p.species))+' '+String(i+1).padStart(2,"0")+'</b></td><td>'+field(p,"health",p.health,editable)+'</td><td>'+field(p,"moisture",p.moisture,editable)+'</td><td>'+field(p,"growthStage",p.growthStage||"Growing",editable,"select")+'</td><td>'+field(p,"yieldKg",num(p.yieldKg).toFixed(1),editable)+'</td><td>'+field(p,"soilPh",num(p.soilPh,6.5).toFixed(1),editable)+'</td><td>'+field(p,"tempC",num(p.tempC,24).toFixed(1),editable)+'</td><td>'+field(p,"notes",p.notes||"",editable,"text")+'</td></tr>').join("")+'</tbody></table></div>'}
-function field(p,key,value,editable,type){if(!editable)return esc(value)+(key==="health"||key==="moisture"?"%":"");const id=esc(p.id);if(type==="select")return '<select data-id="'+id+'" data-key="'+key+'">'+["Seedling","Growing","Leafing","Flowering","Fruiting","Tasseling","Tillering","Harvest ready","Dormant"].map(x=>'<option '+(x===value?"selected":"")+'>'+x+'</option>').join("")+'</select>';return '<input type="'+(type==="text"?"text":"number")+'" value="'+esc(value)+'" data-id="'+id+'" data-key="'+key+'" '+(type==="text"?'maxlength="120"':'step="0.1"')+'>'}
-function history(values){const a=(values||[]).slice(-7);if(!a.length)a.push(0);return '<div class="history">'+a.map(x=>'<div class="bar" style="height:'+Math.max(6,Math.min(100,num(typeof x==="number"?x:x.score)))+'%"><span>'+num(typeof x==="number"?x:x.score)+'</span></div>').join("")+'</div>'}
-function renderEditor(){if(!farm){$("#editor").innerHTML='<div class="note">Choose a farm to view plant readings.</div>';return}const s=stats(plants),v=farmScore(plants);$("#editor").innerHTML='<div class="stats"><div class="stat"><small>INDIVIDUAL PLANTS</small><strong>'+s.count+'</strong></div><div class="stat"><small>AVERAGE HEALTH</small><strong>'+s.health+'%</strong></div><div class="stat"><small>AVERAGE MOISTURE</small><strong>'+s.moisture+'%</strong></div><div class="stat"><small>FARM VITALITY</small><strong>'+v+' /100</strong></div></div>'+table(plants,true)+'<div class="saveBar"><span id="dirty">Change a value, then save readings.</span><button id="saveBtn" class="btn primary">Save readings & update score</button></div><div class="card" style="margin-top:14px"><b style="font-size:12px">Recent vitality</b>'+history(farm.dailyScores)+'</div>';
- document.querySelectorAll("#editor [data-key]").forEach(el=>{el.addEventListener("input",changePlant);el.addEventListener("change",changePlant)});$("#saveBtn").addEventListener("click",saveReadings)}
-function changePlant(e){const p=plants.find(x=>x.id===e.target.dataset.id);if(!p)return;const key=e.target.dataset.key;p[key]=["health","moisture","yieldKg","soilPh","tempC"].includes(key)?num(e.target.value):e.target.value;$("#dirty").textContent="Unsaved edits. Save to publish readings and recalculate vitality."}
-async function selectFarm(id){farm=farms.find(x=>x.id===id)||null;plants=[];if(farmUnsub)farmUnsub();if(plantsUnsub)plantsUnsub();farmUnsub=null;plantsUnsub=null;if(!farm){renderEditor();return}const st=sdk.store;farmUnsub=st.onSnapshot(st.doc(db,"farms",id),s=>{if(s.exists()){farm={id:s.id,...s.data()};renderEditor()}});plantsUnsub=st.onSnapshot(st.collection(db,"farms",id,"plants"),s=>{plants=s.docs.map(d=>({id:d.id,...d.data()}));renderEditor()})}
-async function loadFarms(){try{const s=await sdk.store.getDocs(sdk.store.collection(db,"farms"));farms=s.docs.map(d=>({id:d.id,...d.data()}));$("#farmSelect").innerHTML=farms.map(f=>'<option value="'+esc(f.id)+'">'+esc(f.name)+'</option>').join("")||'<option value="">No farms</option>';await selectFarm(farms[0]?.id)}catch(e){$("#editor").innerHTML='<div class="banner">Could not load farms: '+esc(e.message)+'</div>'}}
-async function saveReadings(){const btn=$("#saveBtn");btn.disabled=true;btn.textContent="Saving…";try{const now=new Date(),iso=now.toISOString(),today=iso.slice(0,10);
- for(const p of plants){const snap={at:iso,health:num(p.health),moisture:num(p.moisture),yieldKg:num(p.yieldKg),growthStage:p.growthStage,soilPh:num(p.soilPh,6.5),tempC:num(p.tempC,24),notes:p.notes||""};await sdk.store.updateDoc(sdk.store.doc(db,"farms",farm.id,"plants",p.id),{...snap,lastReading:iso})}
- const sc=farmScore(plants),daily=(farm.dailyScores||[]).filter(x=>!(x&&x.date===today));daily.push({date:today,score:sc,health:Math.round(mean(plants,"health")),moisture:Math.round(mean(plants,"moisture")),plantCount:plants.length});
- await sdk.store.updateDoc(sdk.store.doc(db,"farms",farm.id),{score:sc,dailyScores:daily.slice(-30),updatedAt:iso});
- $("#dirty").textContent="Saved. Farm vitality is "+sc+" / 100.";btn.disabled=false;btn.textContent="Save readings & update score"
- }catch(e){$("#dirty").textContent="Save failed: "+e.message;btn.disabled=false;btn.textContent="Save readings & update score"}}
-async function checkAdmin(u){try{const d=await sdk.store.getDoc(sdk.store.doc(db,"users",u.uid));if(!d.exists()||d.data().role!=="admin"){await sdk.auth.signOut(auth);$("#loginMsg").textContent='This account is not an admin. Set users/'+u.uid+' role to "admin" in Firestore.';return}
- $("#authPanel").classList.add("hidden");$("#previewPanel").classList.add("hidden");$("#adminPanel").classList.remove("hidden");$("#identity").textContent="Admin verified · "+(u.email||"");$("#connectState").textContent="ADMIN VERIFIED · LIVE";await loadFarms()
- }catch(e){$("#loginMsg").textContent="Could not verify admin role: "+e.message;await sdk.auth.signOut(auth)}}
-async function init(){if(!configured){$("#connectState").textContent="Firebase API key needed";$("#loginMsg").textContent="Real sign-in is disabled until you add the Firebase web API key. Preview works below.";return}
- if(location.protocol==="file:"){ $("#connectState").textContent="Open through HTTPS or localhost";$("#loginMsg").textContent="Firebase modules need an HTTPS host or a local web server; file:// cannot sign in reliably.";return}
- try{const [a,au,st]=await Promise.all([import("https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js"),import("https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js"),import("https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js")]);sdk={app:a,auth:au,store:st};const app=a.initializeApp(firebaseConfig);auth=au.getAuth(app);db=st.getFirestore(app);import("https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js").then(m=>m.isSupported().then(ok=>{if(ok)m.getAnalytics(app)})).catch(e=>console.warn("Analytics unavailable",e));$("#connectState").textContent="Firebase connected";au.onAuthStateChanged(auth,u=>{if(u)checkAdmin(u);else{$("#authPanel").classList.remove("hidden");$("#adminPanel").classList.add("hidden");$("#connectState").textContent="Authentication required"}})}
- catch(e){$("#connectState").textContent="Firebase connection error";$("#loginMsg").textContent=e.message}}
-function preview(){const f=sample[$("#sampleSelect").value],s=stats(f.plants);$("#sampleContent").innerHTML='<div class="stats"><div class="stat"><small>INDIVIDUAL PLANTS</small><strong>'+s.count+'</strong></div><div class="stat"><small>AVERAGE HEALTH</small><strong>'+s.health+'%</strong></div><div class="stat"><small>AVERAGE MOISTURE</small><strong>'+s.moisture+'%</strong></div><div class="stat"><small>VITALITY</small><strong>'+farmScore(f.plants)+' /100</strong></div></div>'+table(f.plants,false)+'<div class="card" style="margin-top:12px"><b style="font-size:12px">Recent vitality</b>'+history(f.dailyScores)+'</div>'}
-$("#previewBtn").addEventListener("click",()=>{$("#previewPanel").classList.remove("hidden");preview();$("#previewPanel").scrollIntoView({behavior:"smooth"})});
-$("#sampleSelect").addEventListener("change",preview);$("#farmSelect").addEventListener("change",e=>selectFarm(e.target.value));$("#refreshBtn").addEventListener("click",loadFarms);
-$("#signOutBtn").addEventListener("click",()=>sdk&&auth&&sdk.auth.signOut(auth));
-$("#loginForm").addEventListener("submit",async e=>{e.preventDefault();if(!configured){$("#loginMsg").textContent="Add the Firebase web API key to this file before signing in.";return}if(!auth){$("#loginMsg").textContent="Firebase is not connected. Host this page over HTTPS and check the API key.";return}const d=new FormData(e.target);try{await sdk.auth.signInWithEmailAndPassword(auth,String(d.get("email")).trim().toLowerCase(),String(d.get("password")))}catch(err){$("#loginMsg").textContent=err.code==="auth/invalid-credential"?"Email or password is incorrect.":err.message}});
-preview();init();
+<footer class="shell footer"><span>The Leaf Doctor · Plant data editor</span><span>Farm vitality is an illustrative indicator; verify crop targets before operational or investment use.</span></footer>
+<script>
+"use strict";
+const BACKEND_USERNAME="Hari";
+const BACKEND_PASSWORD="ugbbaaph4r";
+const STORAGE_KEY="leafDoctorDemoFarms";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
+const speciesNames={tomato:"Tomato",apple:"Apple tree",banana:"Banana",corn:"Sweet corn",rice:"Rice",lettuce:"Lettuce",wheat:"Wheat",potato:"Potato",pepper:"Bell pepper",grape:"Grape vine",mango:"Mango tree",cucumber:"Cucumber"};
+const speciesIcons={tomato:"🍅",apple:"🍎",banana:"🍌",corn:"🌽",rice:"🌾",lettuce:"🥬",wheat:"🌾",potato:"🥔",pepper:"🫑",grape:"🍇",mango:"🥭",cucumber:"🥒"};
+const sampleFarms=[
+{id:"demo-meadow",name:"Morning Meadow Farm",location:"Nashik, Maharashtra",area:12.4,score:91,ownerUid:"demo",isPublic:true,editorEmails:[],dailyScores:[84,86,85,89,87,90,91],plants:[
+{id:"t1",species:"tomato",label:"Tomato",health:94,moisture:58,yieldKg:4.8,growthStage:"Fruiting",soilPh:6.4,tempC:24,notes:"Flowering steadily"},
+{id:"t2",species:"tomato",label:"Tomato",health:88,moisture:52,yieldKg:4.3,growthStage:"Fruiting",soilPh:6.5,tempC:25,notes:"Healthy new leaves"},
+{id:"l1",species:"lettuce",label:"Lettuce",health:90,moisture:64,yieldKg:.7,growthStage:"Leafing",soilPh:6.6,tempC:21,notes:""},
+{id:"b1",species:"banana",label:"Banana",health:88,moisture:68,yieldKg:13,growthStage:"Growing",soilPh:6.2,tempC:27,notes:""}]},
+{id:"demo-orchard",name:"Riverbend Orchard",location:"Coorg, Karnataka",area:8.2,score:89,ownerUid:"demo",isPublic:true,editorEmails:[],dailyScores:[82,83,84,85,86,87,89],plants:[
+{id:"a1",species:"apple",label:"Apple tree",health:89,moisture:57,yieldKg:18,growthStage:"Fruiting",soilPh:6.3,tempC:22,notes:"Fruit setting"},
+{id:"c1",species:"corn",label:"Sweet corn",health:83,moisture:60,yieldKg:1.4,growthStage:"Tasseling",soilPh:6.1,tempC:25,notes:""}]}
+];
+let farms=[],selectedFarm=null,dirty=false;
+function cloneSample(){return JSON.parse(JSON.stringify(sampleFarms))}
+function readFarms(){try{const stored=JSON.parse(localStorage.getItem(STORAGE_KEY));return Array.isArray(stored)?stored:cloneSample()}catch{return cloneSample()}}
+function storeFarms(){localStorage.setItem(STORAGE_KEY,JSON.stringify(farms))}
+function moistureFit(p){const targets={tomato:60,apple:58,banana:70,corn:60,rice:80,lettuce:65,wheat:50,potato:65,pepper:60,grape:55,mango:60,cucumber:65};const target=targets[String(p.species||"").toLowerCase()]||58;return Math.max(0,100-Math.abs(num(p.moisture)-target)*2.1)}
+function vitality(f){const a=f.plants||[];return a.length?Math.round(a.reduce((sum,p)=>sum+num(p.health)*.7+moistureFit(p)*.3,0)/a.length):0}
+function avg(a,key){return a.length?Math.round(a.reduce((sum,p)=>sum+num(p[key]),0)/a.length):0}
+function icon(p){return speciesIcons[String(p.species||"").toLowerCase()]||"🌱"}
+function field(p,key,value,type,extra){const common=' data-plant="'+esc(p.id)+'" data-key="'+key+'"';if(type==="select"){const choices=["Seedling","Growing","Leafing","Flowering","Fruiting","Tasseling","Tillering","Harvest ready","Dormant"];return '<select'+common+'>'+choices.map(x=>'<option value="'+esc(x)+'" '+(x===value?"selected":"")+'>'+esc(x)+'</option>').join("")+'</select>'}return '<input class="'+(extra||"")+'" type="'+(type==="text"?"text":"number")+'" value="'+esc(value)+'"'+common+' '+(type==="text"?'maxlength="120"':'step="0.1"')+'>'}
+function renderFarmOptions(){const select=$("#farmSelect");select.innerHTML=farms.map(f=>'<option value="'+esc(f.id)+'">'+esc(f.name)+'</option>').join("")||'<option value="">No farms saved</option>';if(selectedFarm&&farms.some(f=>f.id===selectedFarm))select.value=selectedFarm;else selectedFarm=farms[0]&&farms[0].id||null;if(selectedFarm)select.value=selectedFarm}
+function renderEditor(){
+ const farm=farms.find(f=>f.id===selectedFarm);
+ if(!farm){$("#editor").innerHTML='<div class="empty">No farm data is saved yet. Open the front page, create a farm in local demo mode, or add sample farms to begin.</div>';return}
+ const plants=farm.plants||[],health=avg(plants,"health"),moisture=avg(plants,"moisture"),yieldKg=plants.reduce((s,p)=>s+num(p.yieldKg),0);
+ const rows=plants.map((p,i)=>'<tr><td>'+icon(p)+' <b>'+esc(p.label||speciesNames[p.species]||p.species||"Plant")+' '+String(i+1).padStart(2,"0")+'</b><br><small style="color:#819084">'+esc(p.species||"plant")+'</small></td><td>'+field(p,"health",p.health,"number")+'</td><td>'+field(p,"moisture",p.moisture,"number")+'</td><td>'+field(p,"growthStage",p.growthStage||"Growing","select")+'</td><td>'+field(p,"yieldKg",num(p.yieldKg).toFixed(1),"number")+'</td><td>'+field(p,"soilPh",num(p.soilPh,6.5).toFixed(1),"number")+'</td><td>'+field(p,"tempC",num(p.tempC,24).toFixed(1),"number")+'</td><td>'+field(p,"notes",p.notes||"","text","notes")+'</td><td><button class="btn danger removePlant" data-id="'+esc(p.id)+'" title="Remove plant">Remove</button></td></tr>').join("");
+ $("#editor").innerHTML='<div class="stats"><div class="stat"><small>INDIVIDUAL PLANTS</small><strong>'+plants.length+'</strong></div><div class="stat"><small>AVERAGE HEALTH</small><strong>'+health+'%</strong></div><div class="stat"><small>AVERAGE MOISTURE</small><strong>'+moisture+'%</strong></div><div class="stat"><small>FARM VITALITY · TOTAL YIELD '+yieldKg.toFixed(1)+' KG</small><strong>'+vitality(farm)+' /100</strong></div></div>'+(plants.length?'<div class="tableWrap"><table><thead><tr><th>Plant</th><th>Health %</th><th>Moisture %</th><th>Growth stage</th><th>Yield kg</th><th>Soil pH</th><th>Temp °C</th><th>Notes</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>':'<div class="empty">This farm has no plants yet. Choose Add plant to create one.</div>')+'<div class="saveBar"><span id="dirtyMsg">'+(dirty?"Unsaved edits.":"Changes save to this browser.")+'</span><button id="saveBtn" class="btn primary">Save readings & update score</button></div>';
+ document.querySelectorAll("#editor [data-key]").forEach(el=>{el.addEventListener("input",changeValue);el.addEventListener("change",changeValue)});
+ document.querySelectorAll(".removePlant").forEach(el=>el.addEventListener("click",()=>removePlant(el.dataset.id)));
+ $("#saveBtn").addEventListener("click",saveReadings)
+}
+function render(){renderFarmOptions();renderEditor()}
+function changeValue(e){const farm=farms.find(f=>f.id===selectedFarm);const plant=farm&&farm.plants.find(p=>p.id===e.target.dataset.plant);if(!plant)return;const key=e.target.dataset.key;plant[key]=["health","moisture","yieldKg","soilPh","tempC"].includes(key)?num(e.target.value):e.target.value;dirty=true;$("#dirtyMsg").textContent="Unsaved edits. Save to update farm data and vitality."}
+function saveReadings(){const farm=farms.find(f=>f.id===selectedFarm);if(!farm)return;const plants=farm.plants||[];for(const p of plants){p.health=Math.min(100,Math.max(0,num(p.health)));p.moisture=Math.min(100,Math.max(0,num(p.moisture)));p.yieldKg=Math.max(0,num(p.yieldKg));p.soilPh=Math.min(14,Math.max(0,num(p.soilPh,6.5)));p.tempC=num(p.tempC,24);p.lastReading=new Date().toISOString()}farm.score=vitality(farm);farm.updatedAt=new Date().toISOString();const today=new Date().toISOString().slice(0,10);farm.dailyScores=farm.dailyScores||[];farm.dailyScores=farm.dailyScores.filter(x=>!(x&&typeof x==="object"&&x.date===today));farm.dailyScores.push({date:today,score:farm.score,health:avg(plants,"health"),moisture:avg(plants,"moisture"),plantCount:plants.length});farm.dailyScores=farm.dailyScores.slice(-30);try{storeFarms();dirty=false;render();$("#dirtyMsg").textContent="Saved in this browser · farm vitality "+farm.score+" / 100."}catch(e){$("#dirtyMsg").textContent="Could not save: "+e.message}}
+function addPlant(){const farm=farms.find(f=>f.id===selectedFarm);if(!farm)return;const label=prompt("Plant name","New plant");if(label===null)return;const species=prompt("Plant type (tomato, apple, lettuce, etc.)","plant");if(species===null)return;farm.plants=farm.plants||[];farm.plants.push({id:"plant-"+Date.now(),species:species.toLowerCase().trim()||"plant",label:label.trim()||"New plant",health:80,moisture:55,yieldKg:0,growthStage:"Seedling",soilPh:6.5,tempC:24,notes:""});dirty=true;render()}
+function removePlant(id){const farm=farms.find(f=>f.id===selectedFarm);if(!farm)return;if(!confirm("Remove this plant from "+farm.name+"?"))return;farm.plants=farm.plants.filter(p=>p.id!==id);dirty=true;render()}
+function showEditor(){farms=readFarms();if(!localStorage.getItem(STORAGE_KEY))try{storeFarms()}catch{}selectedFarm=farms[0]&&farms[0].id||null;dirty=false;$("#loginPanel").classList.add("hidden");$("#adminPanel").classList.remove("hidden");$("#connectState").textContent="Backend unlocked";$("#identity").textContent="Signed in as Hari · local browser data";render()}
+$("#loginForm").addEventListener("submit",e=>{e.preventDefault();const data=new FormData(e.target);const username=String(data.get("username")).trim();const password=String(data.get("password"));if(username===BACKEND_USERNAME&&password===BACKEND_PASSWORD){$("#loginMsg").textContent="";showEditor()}else $("#loginMsg").textContent="Username or password is incorrect."});
+$("#farmSelect").addEventListener("change",e=>{selectedFarm=e.target.value;dirty=false;renderEditor()});
+$("#addPlantBtn").addEventListener("click",addPlant);
+$("#refreshBtn").addEventListener("click",()=>{farms=readFarms();dirty=false;render()});
+$("#signOutBtn").addEventListener("click",()=>{$("#adminPanel").classList.add("hidden");$("#loginPanel").classList.remove("hidden");$("#loginForm").reset();$("#connectState").textContent="Local data editor";$("#loginMsg").textContent=""});
 </script>
 </body>
 </html>
+
